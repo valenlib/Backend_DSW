@@ -32,3 +32,4 @@ class Aeropuerto {
     }
 }
 module.exports = Aeropuerto;
+export default Aeropuerto;

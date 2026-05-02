@@ -20,3 +20,4 @@ class Avion {
 }
 
 module.exports = Avion;
+export default Avion;

@@ -51,3 +51,5 @@ class Pasaje {
 }
 
 module.exports = Pasaje;
+export default Pasaje;
+

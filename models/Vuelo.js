@@ -57,3 +57,4 @@ class vuelo {
 }
 
 module.exports = vuelo;
+export default vuelo;
