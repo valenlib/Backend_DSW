@@ -55,3 +55,5 @@ class vuelo {
   }
 
 }
+
+module.exports = vuelo;
