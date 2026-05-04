@@ -77,5 +77,6 @@ class Reserva {
   }
 }
 
+//REVISAR CUAL USAMOS
 module.exports = Reserva;
 export default Reserva;

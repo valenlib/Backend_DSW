@@ -1,4 +1,3 @@
-//Controler de reserva
 const Reserva = require('../models/Reserva');
 
 exports.createReserva = async (req, res) => {
