@@ -1,6 +1,6 @@
 {
   "name": "dsw",
-  "type":"module",
+  "type": "module",
   "version": "1.0.0",
   "description": "backend del proyecto de DSW",
   "main": "index.js",
@@ -11,7 +11,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valenlib/Backend_DSW.git"
@@ -21,6 +20,8 @@
   },
   "homepage": "https://github.com/valenlib/Backend_DSW#readme",
   "devDependencies": {
-    "prettier": "^3.8.3"
+    "@types/node": "^25.7.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   }
 }
