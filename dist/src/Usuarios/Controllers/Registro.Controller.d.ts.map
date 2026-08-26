@@ -1,0 +1,1 @@
+{"version":3,"file":"Registro.Controller.d.ts","sourceRoot":"","sources":["../../../../src/Usuarios/Controllers/Registro.Controller.ts"],"names":[],"mappings":"AAAA,qBAEa,kBAAkB;IAC7B,OAAO,CAAC,QAAQ,CAAC,eAAe,CAAkB;gBAEtC,eAAe,EAAE,eAAe;IAMtC,gBAAgB,CAAS,OAAO,EAAE,OAAO,GAAG,OAAO,CAAC,oBAAoB,CAAC;CAG9E"}

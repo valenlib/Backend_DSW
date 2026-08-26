@@ -3,10 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "description": "backend del proyecto de DSW",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\""
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/node": "^25.7.0",
     "prettier": "^3.8.3",
+    "tsc-watch": "^7.2.1",
     "typescript": "^6.0.3"
   }
 }
