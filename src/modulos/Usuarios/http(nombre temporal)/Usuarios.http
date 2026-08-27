@@ -1,0 +1,2 @@
+### obtener todos los usuarios
+GET /usuarios

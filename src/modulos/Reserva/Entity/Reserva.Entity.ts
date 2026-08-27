@@ -1,4 +1,4 @@
-import type Pasaje from "./Pasaje";
+import type Pasaje from "./Pasaje.Entity";
 
 class Reserva {
   private _id: number;

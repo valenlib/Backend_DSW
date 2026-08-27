@@ -1,8 +1,8 @@
 import express from 'express';
-import { AdminController } from './Usuarios/Controllers/AdminController';
-import { AuthController } from './Usuarios/Controllers/AuthController';
-import { UsuarioController } from './Usuarios/Controllers/UsuarioController';
-import {Usuario} from './modelsTS/Usuario';
+import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller';
+import { AuthController } from './modulos/Usuarios/Controllers/Auth.Controller';
+import { UsuarioController } from './modulos/Usuarios/Controllers/UsuarioController';
+import {Usuario} from './modulos/Usuarios/Entity/Usuario.entity';
 
 const app = express()
 //post -> crear un recurso
@@ -15,6 +15,19 @@ const app = express()
 //get /api/v1/users/1 -> obtener info del usuario con id 1
 //get /api/v1/users/:id -> obtener info del usuario con id especificado
 const usuarios :Usuario [] = [new Usuario(1, "Juan", "Perez", "juan@example.com"), new Usuario(2, "Maria", "Gomez", "maria@example.com")];
+
+//middleware para parsear el body de las peticiones (ver donde mandarlo)
+function sanitizeInput(req:request, res:Response, next:NextFunction) {
+  req.body.sanitizedInput ={ 
+    name: req.body.name.trim(),
+    surname: req.body.surname.trim(),
+    email: req.body.email.trim().toLowerCase()
+
+  };
+  // mas validaciones y sanitizaciones
+  next();
+}
+
 
 
 app.use('/', (req, res) => {
