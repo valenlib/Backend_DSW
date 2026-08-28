@@ -25,6 +25,7 @@ export class PerfilController {
     return ApiResponse.success('Perfil eliminado lógicamente exitosamente', response);
   }
 
+  //revisar si lo puede hacer o solo el admin
   @Delete('delete')
   async delete(@Body() perfilRequest: DeletePerfilDto): Promise<RespuestaPerfilDto> {
     const response = await this.perfilService.delete(perfilRequest);
