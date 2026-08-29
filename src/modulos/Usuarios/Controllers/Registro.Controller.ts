@@ -13,3 +13,4 @@ export class RegistroController {
     const response = await this.registroService.registrarUsuario(usuario);
     return ApiResponse.success('Registro exitoso', response);
   }
+}
