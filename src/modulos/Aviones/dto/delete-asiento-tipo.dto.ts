@@ -1,7 +1,11 @@
 class DeleteAsientoTipoDto {
+    public nombre: string;
+
     constructor(
-        nombre: string
-    ) {}
+        nombre: string,
+    ) {
+        this.nombre = nombre;
+    }
 }
 
 export default DeleteAsientoTipoDto;

@@ -1,7 +1,7 @@
 class Avion {
   private matricula: string;
-  private modelo: string
-  private capacidad: number;
+  private modelo: string;
+  private capacidad!: number;
   
   constructor(matricula: string, modelo: string, capacidad: number) {
     this.matricula = matricula;
@@ -16,7 +16,27 @@ class Avion {
     this.capacidad = capacidad;
   }
 
-  obtenerInfo() {
+  getMatricula(): string {
+    return this.matricula;
+  }
+
+  setMatricula(matricula: string): void {
+    this.matricula = matricula;
+  }
+
+  getModelo(): string {
+    return this.modelo;
+  }
+
+  setModelo(modelo: string): void {
+    this.modelo = modelo;
+  }
+
+  getCapacidad(): number {
+    return this.capacidad;
+  }
+
+  obtenerInfo(): string {
     return `${this.matricula} ${this.modelo}  (${this.capacidad} pasajeros)`;
   }
 
