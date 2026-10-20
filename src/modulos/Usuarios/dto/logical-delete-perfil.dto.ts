@@ -1,6 +1,10 @@
 class LogicalDeletePerfilDto {
+    public id: number;
+
     constructor(
-        id: number
-    ) {}
+        id: number,
+    ) {
+        this.id = id;
+    }
 }  
 export default LogicalDeletePerfilDto; 

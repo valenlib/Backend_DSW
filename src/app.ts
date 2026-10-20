@@ -1,8 +1,6 @@
 import express from 'express';
-import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller';
-import { AuthController } from './modulos/Usuarios/Controllers/Auth.Controller';
-import { UsuarioController } from './modulos/Usuarios/Controllers/UsuarioController';
-import {Usuario} from './modulos/Usuarios/Entity/Usuario.entity';
+import { Request, Response, NextFunction } from 'express';
+import Usuario from './modulos/Usuarios/Entity/Usuario.entity';
 
 const app = express()
 //post -> crear un recurso
@@ -14,10 +12,13 @@ const app = express()
 //get /api/v1/users -> obtener lista de usuarios
 //get /api/v1/users/1 -> obtener info del usuario con id 1
 //get /api/v1/users/:id -> obtener info del usuario con id especificado
-const usuarios :Usuario [] = [new Usuario(1, "Juan", "Perez", "juan@example.com"), new Usuario(2, "Maria", "Gomez", "maria@example.com")];
+const usuarios: Usuario[] = [
+  new Usuario(1, 'Juan', 'Perez', 'juan@example.com'),
+  new Usuario(2, 'Maria', 'Gomez', 'maria@example.com'),
+];
 
 //middleware para parsear el body de las peticiones (ver donde mandarlo)
-function sanitizeInput(req:request, res:Response, next:NextFunction) {
+function sanitizeInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedInput ={ 
     name: req.body.name.trim(),
     surname: req.body.surname.trim(),
@@ -30,12 +31,14 @@ function sanitizeInput(req:request, res:Response, next:NextFunction) {
 
 
 
-app.use('/', (req, res) => {
-    res.send('Hello World!')
+app.use(express.json());
+
+app.use('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
 });
 
-app.get('/api/v1/Usuario', (req, res) => {
-    res.json(usuarios);
+app.get('/api/v1/Usuario', (req: Request, res: Response) => {
+  res.json(usuarios);
 });
 
 app.listen(3000, () => {

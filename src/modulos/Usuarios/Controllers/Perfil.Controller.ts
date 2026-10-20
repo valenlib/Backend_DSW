@@ -1,35 +1,30 @@
-import { Controller, Patch, Body, Delete } from '@nestjs/common';
-import { PerfilService } from './perfil.service';
-import { ActualizarPerfilDto } from './dto/actualizar-perfil.dto';
-import { LogicalDeletePerfilDto } from './dto/logical-delete-perfil.dto';
-import { DeletePerfilDto } from './dto/delete-perfil.dto';
-import { RespuestaPerfilDto } from './dto/respuesta-perfil.dto';
-import { ApiResponse } from '../common/api-response';
+import { Request, Response } from 'express';
+import PerfilService from '../Services/Perfil.Service';
+import ActualizarPerfilDto from '../dto/actualizar-perfil.dto';
+import LogicalDeletePerfilDto from '../dto/logical-delete-perfil.dto';
+import DeletePerfilDto from '../dto/delete-perfil.dto';
 
-
-@Controller ('perfil')
 export class PerfilController {
-  constructor(
-    private readonly perfilService: PerfilService,
-  ) {}
-  
-  @Patch('actualizar')
-  async actualizarPerfil(@Body() perfilRequest: ActualizarPerfilDto): Promise<RespuestaPerfilDto> {
-    const response = await this.perfilService.actualizarPerfil(perfilRequest);
-    return ApiResponse.success('Perfil actualizado exitosamente', response);
+  constructor(private readonly perfilService: PerfilService) {}
+
+  async actualizarPerfil(req: Request, res: Response): Promise<void> {
+    const response = await this.perfilService.actualizarPerfil(
+      req.body as ActualizarPerfilDto,
+    );
+    res.json(response);
   }
 
-  @Patch ('logicalDelete')
-  async logicalDelete(@Body() perfilRequest: LogicalDeletePerfilDto): Promise<RespuestaPerfilDto> {
-    const response = await this.perfilService.logicalDelete(perfilRequest);
-    return ApiResponse.success('Perfil eliminado lógicamente exitosamente', response);
+  async logicalDelete(req: Request, res: Response): Promise<void> {
+    const response = await this.perfilService.logicalDelete(
+      req.body as LogicalDeletePerfilDto,
+    );
+    res.json(response);
   }
 
-  //revisar si lo puede hacer o solo el admin
-  @Delete('delete')
-  async delete(@Body() perfilRequest: DeletePerfilDto): Promise<RespuestaPerfilDto> {
-    const response = await this.perfilService.delete(perfilRequest);
-    return ApiResponse.success('Perfil eliminado exitosamente', response);
+  async delete(req: Request, res: Response): Promise<void> {
+    const response = await this.perfilService.delete(
+      req.body as DeletePerfilDto,
+    );
+    res.json(response);
   }
-
 }

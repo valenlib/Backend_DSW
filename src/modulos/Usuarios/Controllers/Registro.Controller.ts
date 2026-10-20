@@ -1,16 +1,14 @@
-@Controller ('Registro')
+import { Request, Response } from 'express';
+import RegistroService from '../Services/Registro.service';
+import Usuario from '../Entity/Usuario.entity';
 
 export class RegistroController {
-  private readonly registroService: RegistroService;
+  constructor(private readonly registroService: RegistroService) {}
 
-  constructor(registroService: RegistroService) {
-    this.registroService = registroService;
-  }
-
-
-  @Post ('registrar')
-  async registrarUsuario(@Body() usuario: Usuario): Promise<RespuestaRegistroDto> {
-    const response = await this.registroService.registrarUsuario(usuario);
-    return ApiResponse.success('Registro exitoso', response);
+  async registrarUsuario(req: Request, res: Response): Promise<void> {
+    const response = await this.registroService.registrarUsuario(
+      req.body as Usuario,
+    );
+    res.json(response);
   }
 }

@@ -1,45 +1,37 @@
+import { Request, Response } from 'express';
+import AdminService from '../Services/Admin.Service';
+import Usuario from '../Entity/Usuario.entity';
 
-@Controller('admin')
 export class AdminController {
-  
-  constructor(
-    private readonly adminService: AdminService,
-  ) {}
+  constructor(private readonly adminService: AdminService) {}
 
-  
-  @Get('findall')
-  async findAll(): Promise<RespuestaAdminDto> {
+  async findAll(req: Request, res: Response): Promise<void> {
     const response = await this.adminService.findAll();
-    return ApiResponse.success('Usuarios encontrados exitosamente', response);
+    res.json(response);
   }
 
-
-  @Get('findbyid/:id')
-  async findById(@Param('id') id: number): Promise<RespuestaAdminDto> {
-    const response = await this.adminService.findById(id);
-    return ApiResponse.success('Usuario encontrado exitosamente', response);
+  async findById(req: Request, res: Response): Promise<void> {
+    const response = await this.adminService.findById(Number(req.params.id));
+    res.json(response);
   }
 
-  
-  //busqueda por criterio, despues revisar patron criteria
-
-  @Get('findbycriterio/:criterio')
-  async findByCriterio(@Param('criterio') criterio: string): Promise<RespuestaAdminDto> {
-    const response = await this.adminService.findByCriterio(criterio);
-    return ApiResponse.success('Usuario encontrado exitosamente', response);
-  }
-  
-  //actualizar
-  @Patch('update/:id')
-  async update(@Param('id') id: number, @Body() usuario: Usuario): Promise<RespuestaAdminDto> {
-    const response = await this.adminService.update(id, usuario);
-    return ApiResponse.success('Usuario actualizado exitosamente', response);
+  async findByCriterio(req: Request, res: Response): Promise<void> {
+    const response = await this.adminService.findByCriterio(
+      String(req.params.criterio),
+    );
+    res.json(response);
   }
 
-  @Delete('delete/:id')
-  async delete(@Param('id') id: number): Promise<RespuestaAdminDto> {
-    const response = await this.adminService.delete(id);
-    return ApiResponse.success('Usuario eliminado exitosamente', response);
+  async update(req: Request, res: Response): Promise<void> {
+    const response = await this.adminService.update(
+      Number(req.params.id),
+      req.body as Usuario,
+    );
+    res.json(response);
+  }
+
+  async delete(req: Request, res: Response): Promise<void> {
+    const response = await this.adminService.delete(Number(req.params.id));
+    res.json(response);
   }
 }
-
