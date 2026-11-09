@@ -8,6 +8,9 @@ import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller
 import AdminServiceImpl from './modulos/Usuarios/Services Implementation/Admin.Service.Impl';
 import { AuthController } from './modulos/Usuarios/Controllers/Auth.Controller';
 import AuthServiceImpl from './modulos/Usuarios/Services Implementation/Auth.Service.Impl';
+import { RegistroController } from './modulos/Usuarios/Controllers/Registro.Controller';
+import RegistroServiceImpl from './modulos/Usuarios/Services Implementation/Registro.service.Impl';
+import errorHandler from './shared/error-handler';
 
 const app = express();
 //post -> crear un recurso
@@ -37,6 +40,11 @@ app.use(express.json());
 
 const adminController = new AdminController(new AdminServiceImpl());
 const authController = new AuthController(new AuthServiceImpl());
+const registroController = new RegistroController(new RegistroServiceImpl());
+
+app.post('/api/v1/Usuario', (req: Request, res: Response) =>
+  registroController.registrarUsuario(req, res),
+);
 
 app.post('/api/v1/Usuario/Login', (req: Request, res: Response) =>
   authController.login(req, res),
@@ -54,9 +62,19 @@ app.get('/api/v1/Usuario/:id', (req: Request, res: Response) =>
   adminController.findById(req, res),
 );
 
+app.put('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+  adminController.update(req, res),
+);
+
+app.delete('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+  adminController.delete(req, res),
+);
+
 app.use('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
+
+app.use(errorHandler);
 
 const server = app.listen(3000, async () => {
   try {

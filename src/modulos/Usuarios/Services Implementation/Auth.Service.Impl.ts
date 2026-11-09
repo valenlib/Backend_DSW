@@ -11,8 +11,8 @@ export class AuthServiceImpl extends AuthService {
     userRequest: LoginUserDto,
   ): Promise<RespuestaLoginDto | undefined> {
     const [rows] = await db.query<RowDataPacket[]>(
-      'SELECT id_usuario, nombre, apellido, email FROM usuarios WHERE email = ? AND password = ? LIMIT 1',
-      [userRequest.email, userRequest.password],
+      'SELECT id_usuario, nombre, apellido, email, password FROM usuarios WHERE email = ? LIMIT 1',
+      [userRequest.email.trim().toLowerCase()],
     );
     const user = rows[0];
 

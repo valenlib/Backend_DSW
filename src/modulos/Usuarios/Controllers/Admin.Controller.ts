@@ -28,15 +28,31 @@ export class AdminController {
   }
 
   async update(req: Request, res: Response): Promise<void> {
+    const usuario = new Usuario(
+      Number(req.params.id),
+      req.body.nombre,
+      req.body.apellido,
+      req.body.email,
+    );
     const response = await this.adminService.update(
       Number(req.params.id),
-      req.body as Usuario,
+      usuario,
     );
-    res.json(response);
+    if (!response) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json(response);
   }
 
   async delete(req: Request, res: Response): Promise<void> {
     const response = await this.adminService.delete(Number(req.params.id));
-    res.json(response);
+    if (!response) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json(response);
   }
 }

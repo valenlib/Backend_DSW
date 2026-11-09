@@ -1,9 +1,9 @@
 import RespuestaRegistroDto from '../dto/respuesta-registro.dto';
-import Usuario from '../Entity/Usuario.entity';
+import CrearUsuarioDto from '../dto/crear-usuario.dto';
 
 export abstract class RegistroService {
   abstract registrarUsuario(
-    usuario: Usuario,
+    usuario: CrearUsuarioDto,
   ): Promise<RespuestaRegistroDto | undefined>;
 }
 

@@ -2,7 +2,7 @@ import AdminService from '../Services/Admin.Service';
 import RespuestaAdminDto from '../dto/respuesta-admin.dto';
 import Usuario from '../Entity/Usuario.entity';
 import db from '../../../shared/conn.mysql';
-import type { RowDataPacket } from 'mysql2';
+import type { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 export class AdminServiceImpl extends AdminService {
   async findAll(): Promise<RespuestaAdminDto[]> {
@@ -62,11 +62,33 @@ export class AdminServiceImpl extends AdminService {
     id: number,
     usuario: Usuario,
   ): Promise<RespuestaAdminDto | undefined> {
-    return undefined;
+    const [result] = await db.execute<ResultSetHeader>(
+      `UPDATE usuarios
+       SET nombre = ?, apellido = ?, email = ?
+       WHERE id_usuario = ?`,
+      [
+        usuario.getNombre().trim(),
+        usuario.getApellido().trim(),
+        usuario.getEmail().trim().toLowerCase(),
+        id,
+      ],
+    );
+
+    if (!result.affectedRows) {
+      return undefined;
+    }
+
+    return this.findById(id);
   }
 
   async delete(id: number): Promise<RespuestaAdminDto | undefined> {
-    return undefined;
+    const usuario = await this.findById(id);
+    if (!usuario) {
+      return undefined;
+    }
+
+    await db.execute('DELETE FROM usuarios WHERE id_usuario = ?', [id]);
+    return usuario;
   }
 }
 

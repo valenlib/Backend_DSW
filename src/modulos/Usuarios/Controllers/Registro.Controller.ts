@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import RegistroService from '../Services/Registro.service';
-import Usuario from '../Entity/Usuario.entity';
+import CrearUsuarioDto from '../dto/crear-usuario.dto';
 
 export class RegistroController {
   constructor(private readonly registroService: RegistroService) {}
 
   async registrarUsuario(req: Request, res: Response): Promise<void> {
     const response = await this.registroService.registrarUsuario(
-      req.body as Usuario,
+      req.body as CrearUsuarioDto,
     );
-    res.json(response);
+    res.status(201).json(response);
   }
 }

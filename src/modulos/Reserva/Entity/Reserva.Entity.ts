@@ -1,13 +1,16 @@
 import type Pasaje from "./Pasaje.Entity";
 import type Usuario from "../../Usuarios/Entity/Usuario.entity";
+import type Vuelo from "./Vuelo.Entity";
 class Reserva {
   private _id: number;
   private _pasaje: Pasaje;
-  private _pasajero: Usuario; 
-  constructor(id: number, pasaje: Pasaje, pasajero: Usuario) {
+  private _pasajero: Usuario;
+  private _cantPasajes: number;
+  constructor(id: number, pasaje: Pasaje, pasajero: Usuario, cantPasajes: number) {
     this._id = id;
     this._pasaje = pasaje;
     this._pasajero = pasajero;
+    this._cantPasajes = cantPasajes;
   }
 
   // Getters
@@ -28,7 +31,7 @@ class Reserva {
   }
 
   get cantPasajes() {
-    return this._pasaje.cantPasajes;
+    return this._cantPasajes;
   }
 
   get precio() {
@@ -56,12 +59,12 @@ class Reserva {
     this._pasajero = pasajero;
   }
 
-  set vuelo(vuelo: string) {
+  set vuelo(vuelo: Vuelo) {
     this._pasaje.vuelo = vuelo;
   }
 
   set cantPasajes(cantPasajes: number) {
-    this._pasaje.cantPasajes = cantPasajes;
+    this._cantPasajes = cantPasajes;
   }
 
   set fecha(fecha) {
@@ -78,7 +81,7 @@ class Reserva {
   }
 
   calcularPrecioTotal() {
-    return this._pasaje.precio * this._pasaje.cantPasajes;
+    return this._pasaje.precio * this._cantPasajes;
   }
 }
 
