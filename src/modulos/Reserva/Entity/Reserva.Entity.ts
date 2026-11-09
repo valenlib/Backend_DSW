@@ -2,7 +2,7 @@ export type EstadoReserva = 'pendiente' | 'confirmada' | 'cancelada';
 
 class Reserva {
   private _id: number;
-  private _idViaje: number;
+  private _idVuelo: number;
   private _idUsuario: number;
   private _fechaReserva: string;
   private _estado: EstadoReserva;
@@ -11,7 +11,7 @@ class Reserva {
 
   constructor(
     id: number,
-    idViaje: number,
+    idVuelo: number,
     idUsuario: number,
     fechaReserva: string,
     estado: EstadoReserva = 'pendiente',
@@ -19,7 +19,7 @@ class Reserva {
     activa: boolean = true,
   ) {
     this._id = id;
-    this._idViaje = idViaje;
+    this._idVuelo = idVuelo;
     this._idUsuario = idUsuario;
     this._fechaReserva = fechaReserva;
     this._estado = estado;
@@ -31,8 +31,8 @@ class Reserva {
     return this._id;
   }
 
-  get idViaje(): number {
-    return this._idViaje;
+  get idVuelo(): number {
+    return this._idVuelo;
   }
 
   get idUsuario(): number {
@@ -59,8 +59,8 @@ class Reserva {
     this._id = id;
   }
 
-  set idViaje(idViaje: number) {
-    this._idViaje = idViaje;
+  set idVuelo(idVuelo: number) {
+    this._idVuelo = idVuelo;
   }
 
   set idUsuario(idUsuario: number) {

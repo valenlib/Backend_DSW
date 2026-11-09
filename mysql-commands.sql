@@ -19,26 +19,6 @@ create table IF NOT EXISTS refresh_tokens(
   revoked_at datetime null,
   FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
-create table if not exists viajes(
-  id_viaje int primary key auto_increment,
-  id_usuario int not null,
-  destino varchar(100) not null,
-  fecha_salida date not null,
-  fecha_regreso date not null,
-  precio decimal(10, 2) not null,
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
-);
-create table IF NOT EXISTS reservas(
-  id_reserva int primary key auto_increment,
-  id_viaje int not null,
-  id_usuario int not null,
-  fecha_reserva timestamp default current_timestamp,
-  estado varchar(20) not null,
-  cantidad_pasajes int not null default 1,
-  FOREIGN KEY (id_viaje) REFERENCES viajes(id_viaje),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-  activa boolean not null default true
-);
 create table IF NOT EXISTS aeropuertos(
   id_aeropuerto int primary key auto_increment,
   nombre varchar(100) not null,
@@ -58,6 +38,17 @@ create table IF NOT EXISTS vuelos(
   CHECK (estado IN ('en hora', 'cancelado', 'demorado')),
   FOREIGN KEY (id_aeropuerto_origen) REFERENCES aeropuertos(id_aeropuerto),
   FOREIGN KEY (id_aeropuerto_destino) REFERENCES aeropuertos(id_aeropuerto)
+);
+create table IF NOT EXISTS reservas(
+  id_reserva int primary key auto_increment,
+  id_vuelo int not null,
+  id_usuario int not null,
+  fecha_reserva timestamp default current_timestamp,
+  estado varchar(20) not null,
+  cantidad_pasajes int not null default 1,
+  FOREIGN KEY (id_vuelo) REFERENCES vuelos(id_vuelo),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+  activa boolean not null default true
 );
 create table IF NOT EXISTS aviones(
   id_avion int primary key auto_increment,
