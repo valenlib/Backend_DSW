@@ -6,7 +6,8 @@ create table if not exists usuarios(
   apellido varchar(50) not null,
   email varchar(100) not null unique,
   password varchar(255) not null,
-  fecha_registro timestamp default current_timestamp
+  fecha_registro timestamp default current_timestamp,
+  activo boolean not null default true
 );
 create table if not exists viajes(
   id_viaje int primary key auto_increment,
@@ -23,8 +24,10 @@ create table IF NOT EXISTS reservas(
   id_usuario int not null,
   fecha_reserva timestamp default current_timestamp,
   estado varchar(20) not null,
+  cantidad_pasajes int not null default 1,
   FOREIGN KEY (id_viaje) REFERENCES viajes(id_viaje),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+  activa boolean not null default true
 );
 create table IF NOT EXISTS aeropuertos(
   id_aeropuerto int primary key auto_increment,
@@ -45,7 +48,8 @@ create table IF NOT EXISTS vuelos(
 create table IF NOT EXISTS aviones(
   id_avion int primary key auto_increment,
   modelo varchar(100) not null,
-  capacidad int not null
+  capacidad int not null,
+  estado varchar(20) not null
 );
 create table IF NOT EXISTS asientos(
   id_asiento int primary key auto_increment,

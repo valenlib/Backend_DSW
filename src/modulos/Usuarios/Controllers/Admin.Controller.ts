@@ -48,4 +48,16 @@ export class AdminController {
 
     res.status(200).json(response);
   }
+
+  async logicalDelete(req: Request, res: Response): Promise<void> {
+    const response = await this.adminService.logicalDelete(
+      Number(req.params.id),
+    );
+    if (!response) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json(response);
+  }
 }

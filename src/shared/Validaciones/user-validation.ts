@@ -50,7 +50,7 @@ export async function validateCreateUser(
     validatePassword(password);
 
     const [rows] = await db.query<RowDataPacket[]>(
-      'SELECT id_usuario FROM usuarios WHERE email = ? LIMIT 1',
+      'SELECT id_usuario FROM usuarios WHERE email = ? AND activo = TRUE LIMIT 1',
       [normalizedEmail],
     );
     if (rows.length > 0) {
@@ -120,7 +120,7 @@ export async function validateUserUpdate(
       validateEmail(normalizedEmail);
 
       const [rows] = await db.query<RowDataPacket[]>(
-        'SELECT id_usuario FROM usuarios WHERE email = ? AND id_usuario <> ? LIMIT 1',
+        'SELECT id_usuario FROM usuarios WHERE email = ? AND id_usuario <> ? AND activo = TRUE LIMIT 1',
         [normalizedEmail, req.params.id],
       );
       if (rows.length > 0) {

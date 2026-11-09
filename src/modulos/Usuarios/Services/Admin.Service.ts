@@ -20,6 +20,8 @@ export abstract class AdminService {
     usuario: UsuarioUpdate,
   ): Promise<RespuestaAdminDto | undefined>;
 
+  abstract logicalDelete(id: number): Promise<RespuestaAdminDto | undefined>;
+
   abstract delete(id: number): Promise<RespuestaAdminDto | undefined>;
 }
 
