@@ -1,6 +1,6 @@
 class CrearReservaDto {
     constructor(
-        public idViaje: number,
+        public idVuelo: number,
         public idUsuario: number,
         public cantidadPasajes: number,
     ) {}
