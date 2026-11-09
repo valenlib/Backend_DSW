@@ -1,6 +1,6 @@
 class LogoutUserDto {
-    constructor(id) {
-        this.id = id;
+    constructor(refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
 export default LogoutUserDto;

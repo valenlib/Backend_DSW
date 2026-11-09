@@ -1,9 +1,10 @@
 class Aeropuerto {
-    constructor(id, nombre, ciudad, pais) {
+    constructor(id, nombre, ciudad, pais, activo = true) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.activo = activo;
     }
     //setters y getters
     getId() {
@@ -29,6 +30,12 @@ class Aeropuerto {
     }
     setPais(pais) {
         this.pais = pais;
+    }
+    getActivo() {
+        return this.activo;
+    }
+    setActivo(activo) {
+        this.activo = activo;
     }
 }
 export default Aeropuerto;

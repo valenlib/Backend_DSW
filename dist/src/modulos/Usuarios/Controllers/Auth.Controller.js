@@ -12,6 +12,14 @@ export class AuthController {
     }
     async logout(req, res) {
         const response = await this.authService.logout(req.body);
+        res.status(204).send();
+    }
+    async refresh(req, res) {
+        const response = await this.authService.refresh(req.body.refreshToken);
+        if (!response) {
+            res.status(401).json({ message: 'El refresh token no es válido' });
+            return;
+        }
         res.json(response);
     }
 }

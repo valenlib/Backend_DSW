@@ -9,7 +9,7 @@ import { HttpError } from '../../../shared/error-handler';
 
 type ReservaRow = RowDataPacket & {
   id_reserva: number;
-  id_viaje: number;
+  id_vuelo: number;
   nombre: string;
   apellido: string;
   email: string;
@@ -19,18 +19,18 @@ type ReservaRow = RowDataPacket & {
 
 export default class ReservaServiceImpl extends ReservaService {
   private readonly selectQuery = `
-    SELECT r.id_reserva, r.id_viaje, r.cantidad_pasajes,
+    SELECT r.id_reserva, r.id_vuelo, r.cantidad_pasajes,
            u.nombre, u.apellido, u.email,
            v.precio * r.cantidad_pasajes AS precio_total
     FROM reservas r
     INNER JOIN usuarios u ON u.id_usuario = r.id_usuario AND u.activo = TRUE
-    INNER JOIN viajes v ON v.id_viaje = r.id_viaje
+    INNER JOIN vuelos v ON v.id_vuelo = r.id_vuelo
   `;
 
   private toDto(row: ReservaRow): RespuestaReservaDto {
     return new RespuestaReservaDto(
       row.id_reserva,
-      row.id_viaje,
+      row.id_vuelo,
       `${row.nombre} ${row.apellido}`,
       row.email,
       row.cantidad_pasajes,
@@ -80,9 +80,9 @@ export default class ReservaServiceImpl extends ReservaService {
     const ownerId = role === 'admin' ? reserva.idUsuario : userId;
     const [result] = await db.execute<ResultSetHeader>(
       `INSERT INTO reservas
-       (id_viaje, id_usuario, estado, cantidad_pasajes)
+       (id_vuelo, id_usuario, estado, cantidad_pasajes)
        VALUES (?, ?, 'pendiente', ?)`,
-      [reserva.idViaje, ownerId, reserva.cantidadPasajes],
+      [reserva.idVuelo, ownerId, reserva.cantidadPasajes],
     );
     return this.findById(result.insertId, userId, role);
   }
@@ -107,7 +107,7 @@ export default class ReservaServiceImpl extends ReservaService {
     }
 
     const columnMap: Record<string, string> = {
-      idViaje: 'id_viaje',
+      idVuelo: 'id_vuelo',
       idUsuario: 'id_usuario',
       cantidadPasajes: 'cantidad_pasajes',
     };

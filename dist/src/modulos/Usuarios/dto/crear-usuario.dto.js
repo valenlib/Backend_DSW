@@ -1,6 +1,7 @@
 class CrearUsuarioDto {
-    constructor(nombre, email, password) {
+    constructor(nombre, apellido, email, password) {
         this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.password = password;
     }

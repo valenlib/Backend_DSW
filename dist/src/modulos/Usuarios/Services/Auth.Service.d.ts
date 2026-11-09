@@ -5,6 +5,7 @@ import RespuestaLogoutDto from '../dto/respuesta-logout.dto';
 export declare abstract class AuthService {
     abstract login(userRequest: LoginUserDto): Promise<RespuestaLoginDto | undefined>;
     abstract logout(userRequest: LogoutUserDto): Promise<RespuestaLogoutDto | undefined>;
+    abstract refresh(refreshToken: string): Promise<RespuestaLoginDto | undefined>;
 }
 export default AuthService;
 //# sourceMappingURL=Auth.Service.d.ts.map

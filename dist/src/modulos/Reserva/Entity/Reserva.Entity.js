@@ -1,62 +1,54 @@
 class Reserva {
-    constructor(id, pasaje, pasajero) {
+    constructor(id, idVuelo, idUsuario, fechaReserva, estado = 'pendiente', cantidadPasajes = 1, activa = true) {
         this._id = id;
-        this._pasaje = pasaje;
-        this._pasajero = pasajero;
+        this._idVuelo = idVuelo;
+        this._idUsuario = idUsuario;
+        this._fechaReserva = fechaReserva;
+        this._estado = estado;
+        this._cantidadPasajes = cantidadPasajes;
+        this._activa = activa;
     }
-    // Getters
     get id() {
         return this._id;
     }
-    get pasaje() {
-        return this._pasaje;
+    get idVuelo() {
+        return this._idVuelo;
     }
-    get pasajero() {
-        return this._pasajero;
+    get idUsuario() {
+        return this._idUsuario;
     }
-    get vuelo() {
-        return this._pasaje.vuelo;
+    get fechaReserva() {
+        return this._fechaReserva;
     }
-    get cantPasajes() {
-        return this._pasaje.cantPasajes;
+    get estado() {
+        return this._estado;
     }
-    get precio() {
-        return this._pasaje.precio;
+    get cantidadPasajes() {
+        return this._cantidadPasajes;
     }
-    get fecha() {
-        return this._pasaje.fecha;
+    get activa() {
+        return this._activa;
     }
-    get hora() {
-        return this._pasaje.hora;
-    }
-    // Setters
     set id(id) {
         this._id = id;
     }
-    set pasaje(pasaje) {
-        this._pasaje = pasaje;
+    set idVuelo(idVuelo) {
+        this._idVuelo = idVuelo;
     }
-    set pasajero(pasajero) {
-        this._pasajero = pasajero;
+    set idUsuario(idUsuario) {
+        this._idUsuario = idUsuario;
     }
-    set vuelo(vuelo) {
-        this._pasaje.vuelo = vuelo;
+    set fechaReserva(fechaReserva) {
+        this._fechaReserva = fechaReserva;
     }
-    set cantPasajes(cantPasajes) {
-        this._pasaje.cantPasajes = cantPasajes;
+    set estado(estado) {
+        this._estado = estado;
     }
-    set fecha(fecha) {
-        this._pasaje.fecha = fecha;
+    set cantidadPasajes(cantidadPasajes) {
+        this._cantidadPasajes = cantidadPasajes;
     }
-    set hora(hora) {
-        this._pasaje.hora = hora;
-    }
-    // Método para calcular el precio total de la reserva
-    get precioTotal() {
-        return this.calcularPrecioTotal();
-    }
-    calcularPrecioTotal() {
-        return this._pasaje.precio * this._pasaje.cantPasajes;
+    set activa(activa) {
+        this._activa = activa;
     }
 }
 export default Reserva;

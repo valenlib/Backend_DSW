@@ -10,15 +10,15 @@ export function validateReservaBody(
   res: Response,
   next: NextFunction,
 ): void {
-  const { idViaje, idUsuario, cantidadPasajes } = req.body ?? {};
+  const { idVuelo, idUsuario, cantidadPasajes } = req.body ?? {};
   if (
-    !positiveInteger(idViaje) ||
+    !positiveInteger(idVuelo) ||
     !positiveInteger(idUsuario) ||
     !positiveInteger(cantidadPasajes)
   ) {
     next(
       new HttpError(
-        'idViaje, idUsuario y cantidadPasajes deben ser enteros positivos',
+        'idVuelo, idUsuario y cantidadPasajes deben ser enteros positivos',
         400,
       ),
     );
@@ -32,8 +32,8 @@ export function validateReservaUpdate(
   res: Response,
   next: NextFunction,
 ): void {
-  const { idViaje, idUsuario, cantidadPasajes } = req.body ?? {};
-  const values = [idViaje, idUsuario, cantidadPasajes].filter(
+  const { idVuelo, idUsuario, cantidadPasajes } = req.body ?? {};
+  const values = [idVuelo, idUsuario, cantidadPasajes].filter(
     (value) => value !== undefined,
   );
   if (

@@ -1,15 +1,17 @@
 class Pasaje {
-    constructor(id, precio, fecha, hora, origen, destino) {
+    constructor(id, vuelo, precio, fecha, hora) {
         this._id = id;
+        this._vuelo = vuelo;
         this._precio = precio;
         this._fecha = fecha;
         this._hora = hora;
-        this._origen = origen;
-        this._destino = destino;
     }
     // Getters
     get id() {
         return this._id;
+    }
+    get vuelo() {
+        return this._vuelo;
     }
     get precio() {
         return this._precio;
@@ -20,15 +22,12 @@ class Pasaje {
     get hora() {
         return this._hora;
     }
-    get origen() {
-        return this._origen;
-    }
-    get destino() {
-        return this._destino;
-    }
     // Setters
     set id(id) {
         this._id = id;
+    }
+    set vuelo(vuelo) {
+        this._vuelo = vuelo;
     }
     set precio(precio) {
         this._precio = precio;
@@ -38,12 +37,6 @@ class Pasaje {
     }
     set hora(hora) {
         this._hora = hora;
-    }
-    set origen(origen) {
-        this._origen = origen;
-    }
-    set destino(destino) {
-        this._destino = destino;
     }
 }
 export default Pasaje;
