@@ -6,6 +6,7 @@ import {
 } from './shared/conn.mysql';
 import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller';
 import AdminServiceImpl from './modulos/Usuarios/Services Implementation/Admin.Service.Impl';
+import errorHandler from './shared/error-handler';
 
 const app = express();
 //post -> crear un recurso
@@ -55,6 +56,8 @@ app.get('/api/v1/Usuario/:id', (req: Request, res: Response) =>
 app.use('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
+
+app.use(errorHandler);
 
 const server = app.listen(3000, async () => {
   try {
