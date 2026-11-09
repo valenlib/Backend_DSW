@@ -1,9 +1,8 @@
 class ActualizarAeropuertoDto {
     constructor(
-        id: number,
-        nombre: string,
-        ciudad: string,
-        pais: string
+        public nombre?: string,
+        public ciudad?: string,
+        public pais?: string,
     ) {}
 }
 

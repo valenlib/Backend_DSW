@@ -5,6 +5,10 @@ class CrearVueloDto {
         public fechaSalida: string,
         public fechaLlegada: string,
         public precio: number,
+        public estado: 'en hora' | 'atrasado' | 'demorado' = 'en hora',
+        public nuevoHorario: string | null = null,
+        public horaSalida: string,
+        public horaLlegada: string,
     ) {}
 }
 

@@ -1,8 +1,8 @@
 class CrearAeropuertoDto {
     constructor(
-        nombre: string,
-        ciudad: string,
-        pais: string
+        public nombre: string,
+        public ciudad: string,
+        public pais: string,
     ) {}
 }
 

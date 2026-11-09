@@ -1,9 +1,9 @@
 class RespuestaAeropuertoDto {
     constructor(
-        id: number,
-        nombre: string,
-        ciudad: string,
-        pais: string
+        public id: number,
+        public nombre: string,
+        public ciudad: string,
+        public pais: string,
     ) {}
 }
 

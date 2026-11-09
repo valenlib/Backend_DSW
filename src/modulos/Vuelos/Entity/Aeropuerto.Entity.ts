@@ -3,12 +3,20 @@ class Aeropuerto {
     private nombre: string
     private ciudad: string;
     private pais: string;
-    constructor(id: number, nombre: string, ciudad: string, pais: string) {
+    private activo: boolean;
+    constructor(
+        id: number,
+        nombre: string,
+        ciudad: string,
+        pais: string,
+        activo: boolean = true,
+    ) {
        
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.activo = activo;
     }
     //setters y getters
     getId() {
@@ -34,6 +42,12 @@ class Aeropuerto {
     }
     setPais(pais: string) {
         this.pais = pais;
+    }
+    getActivo() {
+        return this.activo;
+    }
+    setActivo(activo: boolean) {
+        this.activo = activo;
     }
 }
 

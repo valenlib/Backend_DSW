@@ -33,7 +33,8 @@ create table IF NOT EXISTS aeropuertos(
   id_aeropuerto int primary key auto_increment,
   nombre varchar(100) not null,
   ciudad varchar(100) not null,
-  pais varchar(100) not null
+  pais varchar(100) not null,
+  activo boolean not null default true
 );
 create table IF NOT EXISTS vuelos(
   id_vuelo int primary key auto_increment,

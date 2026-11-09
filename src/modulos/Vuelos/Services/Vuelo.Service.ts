@@ -12,6 +12,6 @@ export default abstract class VueloService {
     id: number,
     vuelo: ActualizarVueloDto,
   ): Promise<RespuestaVueloDto | undefined>;
-  abstract logicalDelete(id: number): Promise<RespuestaVueloDto | undefined>;
+
   abstract delete(id: number): Promise<RespuestaVueloDto | undefined>;
 }
