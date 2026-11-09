@@ -1,0 +1,168 @@
+@baseUrl = http://localhost:3000/api/v1
+@token = PEGAR_ACCESS_TOKEN
+
+### Registrar usuario
+POST {{baseUrl}}/Usuario
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Perez",
+  "email": "juan@test.com",
+  "password": "Juan123!"
+}
+
+### Login administrador
+POST {{baseUrl}}/Usuario/Login
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "admin123"
+}
+
+### Renovar access token
+POST {{baseUrl}}/Usuario/Refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "PEGAR_REFRESH_TOKEN"
+}
+
+### Obtener usuarios
+GET {{baseUrl}}/Usuario
+Authorization: Bearer {{token}}
+
+### Buscar usuarios
+GET {{baseUrl}}/Usuario/search/Juan
+Authorization: Bearer {{token}}
+
+### Obtener usuario por ID
+GET {{baseUrl}}/Usuario/1
+Authorization: Bearer {{token}}
+
+### Actualizar usuario
+PATCH {{baseUrl}}/Usuario/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Juan Actualizado"
+}
+
+### Borrado lógico de usuario
+PATCH {{baseUrl}}/Usuario/1/logical-delete
+Authorization: Bearer {{token}}
+
+### Borrado físico de usuario
+DELETE {{baseUrl}}/Usuario/1
+Authorization: Bearer {{token}}
+
+### Crear aeropuerto
+POST {{baseUrl}}/Aeropuerto
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Aeropuerto Ezeiza",
+  "ciudad": "Buenos Aires",
+  "pais": "Argentina"
+}
+
+### Obtener aeropuertos
+GET {{baseUrl}}/Aeropuerto
+Authorization: Bearer {{token}}
+
+### Obtener aeropuerto por ID
+GET {{baseUrl}}/Aeropuerto/1
+Authorization: Bearer {{token}}
+
+### Actualizar aeropuerto
+PATCH {{baseUrl}}/Aeropuerto/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "ciudad": "Buenos Aires"
+}
+
+### Borrado lógico de aeropuerto
+PATCH {{baseUrl}}/Aeropuerto/1/logical-delete
+Authorization: Bearer {{token}}
+
+### Borrado físico de aeropuerto
+DELETE {{baseUrl}}/Aeropuerto/1
+Authorization: Bearer {{token}}
+
+### Obtener vuelos
+GET {{baseUrl}}/Vuelo
+Authorization: Bearer {{token}}
+
+### Obtener vuelo por ID
+GET {{baseUrl}}/Vuelo/1
+Authorization: Bearer {{token}}
+
+### Crear vuelo
+POST {{baseUrl}}/Vuelo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idAeropuertoOrigen": 1,
+  "idAeropuertoDestino": 2,
+  "fechaSalida": "2027-01-15",
+  "fechaLlegada": "2027-01-15",
+  "horaSalida": "08:00",
+  "horaLlegada": "10:00",
+  "precio": 85000,
+  "estado": "en hora"
+}
+
+### Actualizar vuelo
+PATCH {{baseUrl}}/Vuelo/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "estado": "cancelado"
+}
+
+### Borrado físico de vuelo
+DELETE {{baseUrl}}/Vuelo/1
+Authorization: Bearer {{token}}
+
+### Obtener reservas
+GET {{baseUrl}}/Reserva
+Authorization: Bearer {{token}}
+
+### Obtener reserva por ID
+GET {{baseUrl}}/Reserva/1
+Authorization: Bearer {{token}}
+
+### Crear reserva
+POST {{baseUrl}}/Reserva
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idVuelo": 1,
+  "idUsuario": 1,
+  "cantidadPasajes": 2
+}
+
+### Actualizar reserva
+PATCH {{baseUrl}}/Reserva/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "cantidadPasajes": 3
+}
+
+### Borrado lógico de reserva
+PATCH {{baseUrl}}/Reserva/1/logical-delete
+Authorization: Bearer {{token}}
+
+### Borrado físico de reserva
+DELETE {{baseUrl}}/Reserva/1
+Authorization: Bearer {{token}}
