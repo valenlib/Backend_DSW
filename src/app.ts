@@ -18,11 +18,6 @@ const app = express();
 //get /api/v1/users -> obtener lista de usuarios
 //get /api/v1/users/1 -> obtener info del usuario con id 1
 //get /api/v1/users/:id -> obtener info del usuario con id especificado
-const usuarios: Usuario[] = [
-  new Usuario(1, 'Juan', 'Perez', 'juan@example.com'),
-  new Usuario(2, 'Maria', 'Gomez', 'maria@example.com'),
-];
-
 //middleware para parsear el body de las peticiones (ver donde mandarlo)
 function sanitizeInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedInput ={ 
