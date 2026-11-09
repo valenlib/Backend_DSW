@@ -1,12 +1,13 @@
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
-import Usuario from './modulos/Usuarios/Entity/Usuario.entity';
 import {
   closeDatabaseConnection,
   testDatabaseConnection,
 } from './shared/conn.mysql';
+import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller';
+import AdminServiceImpl from './modulos/Usuarios/Services Implementation/Admin.Service.Impl';
 
-const app = express()
+const app = express();
 //post -> crear un recurso
 //get -> obtener info sobre recursos
 //put y patch -> actualizar un recurso
@@ -37,12 +38,22 @@ function sanitizeInput(req: Request, res: Response, next: NextFunction) {
 
 app.use(express.json());
 
+const adminController = new AdminController(new AdminServiceImpl());
+
+app.get('/api/v1/Usuario', (req: Request, res: Response) =>
+  adminController.findAll(req, res),
+);
+
+app.get('/api/v1/Usuario/search/:criterio', (req: Request, res: Response) =>
+  adminController.findByCriterio(req, res),
+);
+
+app.get('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+  adminController.findById(req, res),
+);
+
 app.use('/', (req: Request, res: Response) => {
   res.send('Hello World!');
-});
-
-app.get('/api/v1/Usuario', (req: Request, res: Response) => {
-  res.json(usuarios);
 });
 
 const server = app.listen(3000, async () => {

@@ -7,19 +7,24 @@ export class AdminController {
 
   async findAll(req: Request, res: Response): Promise<void> {
     const response = await this.adminService.findAll();
-    res.json(response);
+    res.status(200).json(response);
   }
 
   async findById(req: Request, res: Response): Promise<void> {
     const response = await this.adminService.findById(Number(req.params.id));
-    res.json(response);
+    if (!response) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    res.status(200).json(response);
   }
 
   async findByCriterio(req: Request, res: Response): Promise<void> {
     const response = await this.adminService.findByCriterio(
       String(req.params.criterio),
     );
-    res.json(response);
+    res.status(200).json(response);
   }
 
   async update(req: Request, res: Response): Promise<void> {

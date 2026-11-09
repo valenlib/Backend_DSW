@@ -2,13 +2,13 @@ import RespuestaAdminDto from '../dto/respuesta-admin.dto';
 import Usuario from '../Entity/Usuario.entity';
 
 export abstract class AdminService {
-  abstract findAll(): Promise<RespuestaAdminDto | undefined>;
+  abstract findAll(): Promise<RespuestaAdminDto[]>;
 
   abstract findById(id: number): Promise<RespuestaAdminDto | undefined>;
 
   abstract findByCriterio(
     criterio: string,
-  ): Promise<RespuestaAdminDto | undefined>;
+  ): Promise<RespuestaAdminDto[]>;
 
   abstract update(
     id: number,
