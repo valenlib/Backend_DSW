@@ -1,6 +1,10 @@
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import Usuario from './modulos/Usuarios/Entity/Usuario.entity';
+import {
+  closeDatabaseConnection,
+  testDatabaseConnection,
+} from './shared/conn.mysql';
 
 const app = express()
 //post -> crear un recurso
@@ -41,6 +45,37 @@ app.get('/api/v1/Usuario', (req: Request, res: Response) => {
   res.json(usuarios);
 });
 
-app.listen(3000, () => {
+const server = app.listen(3000, async () => {
+  try {
+    await testDatabaseConnection();
     console.log('Server is running on http://localhost:3000/');
+  } catch {
+    server.close(async () => {
+      try {
+        await closeDatabaseConnection();
+      } catch {
+        process.exitCode = 1;
+      }
+      process.exitCode = 1;
+    });
+  }
 });
+
+async function shutdown(signal: string): Promise<void> {
+  console.log(`${signal} received, shutting down`);
+  server.close(async (error) => {
+    if (error) {
+      console.error('Unable to close the HTTP server', error);
+      process.exitCode = 1;
+    }
+
+    try {
+      await closeDatabaseConnection();
+    } catch {
+      process.exitCode = 1;
+    }
+  });
+}
+
+process.once('SIGINT', () => void shutdown('SIGINT'));
+process.once('SIGTERM', () => void shutdown('SIGTERM'));
