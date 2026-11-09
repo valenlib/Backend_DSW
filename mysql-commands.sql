@@ -64,3 +64,67 @@ create table IF NOT EXISTS asientos(
   estado varchar(20) not null,
   FOREIGN KEY (id_avion) REFERENCES aviones(id_avion)
 );
+
+INSERT INTO usuarios
+  (nombre, apellido, email, password, rol)
+SELECT 'Admin', 'Prueba', 'admin@test.com',
+       '$2b$12$YK4n30x5M56uqVRob9VUg.CLDWTeANz8cVST9EHQ66ZAOpss3EN4.',
+       'admin'
+WHERE NOT EXISTS (
+  SELECT 1 FROM usuarios WHERE email = 'admin@test.com'
+);
+
+INSERT INTO aeropuertos (nombre, ciudad, pais)
+SELECT 'Aeropuerto Ezeiza', 'Buenos Aires', 'Argentina'
+WHERE NOT EXISTS (
+  SELECT 1 FROM aeropuertos WHERE nombre = 'Aeropuerto Ezeiza'
+);
+
+INSERT INTO aeropuertos (nombre, ciudad, pais)
+SELECT 'Aeropuerto Internacional de Cordoba', 'Cordoba', 'Argentina'
+WHERE NOT EXISTS (
+  SELECT 1 FROM aeropuertos
+  WHERE nombre = 'Aeropuerto Internacional de Cordoba'
+);
+
+INSERT INTO vuelos
+  (id_aeropuerto_origen, id_aeropuerto_destino, fecha_salida,
+   fecha_llegada, precio, estado)
+SELECT
+  origen.id_aeropuerto,
+  destino.id_aeropuerto,
+  '2027-01-15 08:00:00',
+  '2027-01-15 10:00:00',
+  85000.00,
+  'en hora'
+FROM aeropuertos origen
+JOIN aeropuertos destino
+  ON destino.nombre = 'Aeropuerto Internacional de Cordoba'
+WHERE origen.nombre = 'Aeropuerto Ezeiza'
+  AND NOT EXISTS (
+    SELECT 1 FROM vuelos
+    WHERE fecha_salida = '2027-01-15 08:00:00'
+      AND id_aeropuerto_origen = origen.id_aeropuerto
+      AND id_aeropuerto_destino = destino.id_aeropuerto
+  );
+
+INSERT INTO vuelos
+  (id_aeropuerto_origen, id_aeropuerto_destino, fecha_salida,
+   fecha_llegada, precio, estado)
+SELECT
+  origen.id_aeropuerto,
+  destino.id_aeropuerto,
+  '2027-01-20 14:30:00',
+  '2027-01-20 16:30:00',
+  92000.00,
+  'demorado'
+FROM aeropuertos origen
+JOIN aeropuertos destino
+  ON destino.nombre = 'Aeropuerto Ezeiza'
+WHERE origen.nombre = 'Aeropuerto Internacional de Cordoba'
+  AND NOT EXISTS (
+    SELECT 1 FROM vuelos
+    WHERE fecha_salida = '2027-01-20 14:30:00'
+      AND id_aeropuerto_origen = origen.id_aeropuerto
+      AND id_aeropuerto_destino = destino.id_aeropuerto
+  );
