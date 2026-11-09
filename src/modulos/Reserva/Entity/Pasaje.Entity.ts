@@ -1,4 +1,4 @@
-import type Vuelo from './Vuelo.Entity';
+import type Vuelo from '../../Vuelos/Entity/Vuelo.Entity';
 
 class Pasaje {
     private _id: number;

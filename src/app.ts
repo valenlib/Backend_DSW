@@ -24,6 +24,7 @@ import {
   validateReservaBody,
   validateReservaUpdate,
 } from './shared/Validaciones/reserva-validation';
+import { HttpError } from './shared/error-handler';
 
 const app = express();
 //post -> crear un recurso
@@ -98,8 +99,8 @@ app.delete('/api/v1/Reserva/:id', validateId, (req: Request, res: Response) =>
   reservaController.delete(req, res),
 );
 
-app.use('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+app.use((req: Request, res: Response, next) => {
+  next(new HttpError('Ruta no encontrada', 404));
 });
 
 app.use(errorHandler);
