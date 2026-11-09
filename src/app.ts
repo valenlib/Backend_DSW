@@ -20,10 +20,20 @@ import {
 } from './shared/Validaciones/user-validation';
 import ReservaController from './modulos/Reserva/Controllers/Reserva.Controller';
 import ReservaServiceImpl from './modulos/Reserva/Services Implementation/Reserva.Service.Impl';
+import AeropuertoController from './modulos/Vuelos/Controllers/Aeropuerto.Controller';
+import AeropuertoServiceImpl from './modulos/Vuelos/Services Implementation/Aeropuerto.Service.Impl';
+import VueloController from './modulos/Vuelos/Controllers/Vuelo.Controller';
+import VueloServiceImpl from './modulos/Vuelos/Services Implementation/Vuelo.Service.Impl';
 import {
   validateReservaBody,
   validateReservaUpdate,
 } from './shared/Validaciones/reserva-validation';
+import {
+  validateAeropuertoBody,
+  validateAeropuertoUpdate,
+  validateVueloCreate,
+  validateVueloUpdate,
+} from './shared/Validaciones/vuelos-validation';
 import { HttpError, logUnexpectedError } from './shared/error-handler';
 import {
   authMiddleware,
@@ -47,6 +57,10 @@ const adminController = new AdminController(new AdminServiceImpl());
 const authController = new AuthController(new AuthServiceImpl());
 const registroController = new RegistroController(new RegistroServiceImpl());
 const reservaController = new ReservaController(new ReservaServiceImpl());
+const aeropuertoController = new AeropuertoController(
+  new AeropuertoServiceImpl(),
+);
+const vueloController = new VueloController(new VueloServiceImpl());
 
 app.post('/api/v1/Usuario', validateCreateUser, (req: Request, res: Response) =>
   registroController.registrarUsuario(req, res),
@@ -110,6 +124,50 @@ app.patch('/api/v1/Reserva/:id/logical-delete', authMiddleware, validateId, (req
 
 app.delete('/api/v1/Reserva/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
   reservaController.delete(req, res),
+);
+
+app.get('/api/v1/Aeropuerto', authMiddleware, requireRole('admin'), (req: Request, res: Response) =>
+  aeropuertoController.findAll(req, res),
+);
+
+app.get('/api/v1/Aeropuerto/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
+  aeropuertoController.findById(req, res),
+);
+
+app.post('/api/v1/Aeropuerto', authMiddleware, requireRole('admin'), validateAeropuertoBody, (req: Request, res: Response) =>
+  aeropuertoController.create(req, res),
+);
+
+app.patch('/api/v1/Aeropuerto/:id', authMiddleware, requireRole('admin'), validateId, validateAeropuertoUpdate, (req: Request, res: Response) =>
+  aeropuertoController.update(req, res),
+);
+
+app.patch('/api/v1/Aeropuerto/:id/logical-delete', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
+  aeropuertoController.logicalDelete(req, res),
+);
+
+app.delete('/api/v1/Aeropuerto/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
+  aeropuertoController.delete(req, res),
+);
+
+app.get('/api/v1/Vuelo', authMiddleware, requireRole('admin'), (req: Request, res: Response) =>
+  vueloController.findAll(req, res),
+);
+
+app.get('/api/v1/Vuelo/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
+  vueloController.findById(req, res),
+);
+
+app.post('/api/v1/Vuelo', authMiddleware, requireRole('admin'), validateVueloCreate, (req: Request, res: Response) =>
+  vueloController.create(req, res),
+);
+
+app.patch('/api/v1/Vuelo/:id', authMiddleware, requireRole('admin'), validateId, validateVueloUpdate, (req: Request, res: Response) =>
+  vueloController.update(req, res),
+);
+
+app.delete('/api/v1/Vuelo/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
+  vueloController.delete(req, res),
 );
 
 app.use((req: Request, res: Response, next) => {
