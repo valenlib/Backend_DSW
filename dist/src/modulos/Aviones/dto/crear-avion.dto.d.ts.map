@@ -1,0 +1,1 @@
+{"version":3,"file":"crear-avion.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/crear-avion.dto.ts"],"names":[],"mappings":"AAAA,cAAM,aAAa;IACR,SAAS,EAAE,MAAM,CAAC;IAClB,MAAM,EAAE,MAAM,CAAC;IACf,SAAS,EAAE,MAAM,CAAC;gBAGrB,SAAS,EAAE,MAAM,EACjB,MAAM,EAAE,MAAM,EACd,SAAS,EAAE,MAAM;CAMxB;AAED,eAAe,aAAa,CAAC"}

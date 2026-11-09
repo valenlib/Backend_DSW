@@ -1,0 +1,1 @@
+{"version":3,"file":"crear-vuelo.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/crear-vuelo.dto.ts"],"names":[],"mappings":"AAAA,cAAM,aAAa;gBAEX,KAAK,EAAE,MAAM,EACb,MAAM,EAAE,MAAM,EACd,OAAO,EAAE,MAAM,EACf,KAAK,EAAE,MAAM,EACb,IAAI,EAAE,MAAM,EACZ,MAAM,EAAE,MAAM;CAErB;AAED,eAAe,aAAa,CAAC"}

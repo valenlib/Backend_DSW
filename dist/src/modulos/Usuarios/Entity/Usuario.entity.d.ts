@@ -1,0 +1,20 @@
+declare class Usuario {
+    private id;
+    private nombre;
+    private email;
+    private apellido;
+    private password?;
+    constructor(id: number, nombre: string, apellido: string, email: string, password?: string);
+    getId(): number;
+    setId(id: number): void;
+    getNombre(): string;
+    setNombre(nombre: string): void;
+    getEmail(): string;
+    setEmail(email: string): void;
+    getApellido(): string;
+    setApellido(apellido: string): void;
+    getPassword(): string | undefined;
+    setPassword(password: string | undefined): void;
+}
+export default Usuario;
+//# sourceMappingURL=Usuario.entity.d.ts.map

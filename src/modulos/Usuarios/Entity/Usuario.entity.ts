@@ -9,7 +9,7 @@ class Usuario
     console.log("Este es un método de clase");
   }*/
   
-  private constructor (
+  constructor (
     id: number,
     nombre: string,
     apellido: string,

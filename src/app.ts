@@ -6,7 +6,8 @@ import {
 } from './shared/conn.mysql';
 import { AdminController } from './modulos/Usuarios/Controllers/Admin.Controller';
 import AdminServiceImpl from './modulos/Usuarios/Services Implementation/Admin.Service.Impl';
-import errorHandler from './shared/error-handler';
+import { AuthController } from './modulos/Usuarios/Controllers/Auth.Controller';
+import AuthServiceImpl from './modulos/Usuarios/Services Implementation/Auth.Service.Impl';
 
 const app = express();
 //post -> crear un recurso
@@ -35,6 +36,11 @@ function sanitizeInput(req: Request, res: Response, next: NextFunction) {
 app.use(express.json());
 
 const adminController = new AdminController(new AdminServiceImpl());
+const authController = new AuthController(new AuthServiceImpl());
+
+app.post('/api/v1/Usuario/Login', (req: Request, res: Response) =>
+  authController.login(req, res),
+);
 
 app.get('/api/v1/Usuario', (req: Request, res: Response) =>
   adminController.findAll(req, res),
@@ -51,8 +57,6 @@ app.get('/api/v1/Usuario/:id', (req: Request, res: Response) =>
 app.use('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
-
-app.use(errorHandler);
 
 const server = app.listen(3000, async () => {
   try {
