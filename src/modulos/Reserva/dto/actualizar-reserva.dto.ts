@@ -1,10 +1,8 @@
 class ActualizarReservaDto {
     constructor(
-        id: number,
-        idVuelo?: number,
-        nombrePasajero?: string,
-        emailPasajero?: string,
-        cantidadPasajes?: number
+        public idViaje?: number,
+        public idUsuario?: number,
+        public cantidadPasajes?: number,
     ) {}
 }
 

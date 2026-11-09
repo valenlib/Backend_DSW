@@ -1,11 +1,11 @@
 class RespuestaReservaDto {
     constructor(
-        id: number,
-        idVuelo: number,
-        nombrePasajero: string,
-        emailPasajero: string,
-        cantidadPasajes: number,
-        precioTotal: number
+        public id: number,
+        public idViaje: number,
+        public nombrePasajero: string,
+        public emailPasajero: string,
+        public cantidadPasajes: number,
+        public precioTotal: number,
     ) {}
 }
 

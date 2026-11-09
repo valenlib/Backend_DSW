@@ -18,6 +18,12 @@ import {
   validateSearchCriteria,
   validateUserUpdate,
 } from './shared/Validaciones/user-validation';
+import ReservaController from './modulos/Reserva/Controllers/Reserva.Controller';
+import ReservaServiceImpl from './modulos/Reserva/Services Implementation/Reserva.Service.Impl';
+import {
+  validateReservaBody,
+  validateReservaUpdate,
+} from './shared/Validaciones/reserva-validation';
 
 const app = express();
 //post -> crear un recurso
@@ -34,6 +40,7 @@ app.use(express.json());
 const adminController = new AdminController(new AdminServiceImpl());
 const authController = new AuthController(new AuthServiceImpl());
 const registroController = new RegistroController(new RegistroServiceImpl());
+const reservaController = new ReservaController(new ReservaServiceImpl());
 
 app.post('/api/v1/Usuario', validateCreateUser, (req: Request, res: Response) =>
   registroController.registrarUsuario(req, res),
@@ -59,12 +66,36 @@ app.patch('/api/v1/Usuario/:id', validateUserUpdate, (req: Request, res: Respons
   adminController.update(req, res),
 );
 
-app.put('/api/v1/Usuario/:id', validateUserUpdate, (req: Request, res: Response) =>
-  adminController.update(req, res),
+app.patch('/api/v1/Usuario/:id/logical-delete', validateId, (req: Request, res: Response) =>
+  adminController.logicalDelete(req, res),
 );
 
 app.delete('/api/v1/Usuario/:id', validateId, (req: Request, res: Response) =>
   adminController.delete(req, res),
+);
+
+app.get('/api/v1/Reserva', (req: Request, res: Response) =>
+  reservaController.findAll(req, res),
+);
+
+app.get('/api/v1/Reserva/:id', validateId, (req: Request, res: Response) =>
+  reservaController.findById(req, res),
+);
+
+app.post('/api/v1/Reserva', validateReservaBody, (req: Request, res: Response) =>
+  reservaController.create(req, res),
+);
+
+app.patch('/api/v1/Reserva/:id', validateId, validateReservaUpdate, (req: Request, res: Response) =>
+  reservaController.update(req, res),
+);
+
+app.patch('/api/v1/Reserva/:id/logical-delete', validateId, (req: Request, res: Response) =>
+  reservaController.logicalDelete(req, res),
+);
+
+app.delete('/api/v1/Reserva/:id', validateId, (req: Request, res: Response) =>
+  reservaController.delete(req, res),
 );
 
 app.use('/', (req: Request, res: Response) => {
