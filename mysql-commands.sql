@@ -6,8 +6,18 @@ create table if not exists usuarios(
   apellido varchar(50) not null,
   email varchar(100) not null unique,
   password varchar(255) not null,
+  rol varchar(20) not null default 'usuario',
   fecha_registro timestamp default current_timestamp,
-  activo boolean not null default true
+  activo boolean not null default true,
+  CHECK (rol IN ('admin', 'usuario'))
+);
+create table IF NOT EXISTS refresh_tokens(
+  id_refresh_token bigint primary key auto_increment,
+  id_usuario int not null,
+  token_hash char(64) not null unique,
+  expires_at datetime not null,
+  revoked_at datetime null,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 create table if not exists viajes(
   id_viaje int primary key auto_increment,

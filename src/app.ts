@@ -25,6 +25,11 @@ import {
   validateReservaUpdate,
 } from './shared/Validaciones/reserva-validation';
 import { HttpError, logUnexpectedError } from './shared/error-handler';
+import {
+  authMiddleware,
+  requireRole,
+  requireSelfOrRole,
+} from './shared/JWT/auth.middleware';
 
 const app = express();
 //post -> crear un recurso
@@ -51,51 +56,59 @@ app.post('/api/v1/Usuario/Login', validateLogin, (req: Request, res: Response) =
   authController.login(req, res),
 );
 
-app.get('/api/v1/Usuario', (req: Request, res: Response) =>
+app.post('/api/v1/Usuario/Refresh', (req: Request, res: Response) =>
+  authController.refresh(req, res),
+);
+
+app.post('/api/v1/Usuario/Logout', authMiddleware, (req: Request, res: Response) =>
+  authController.logout(req, res),
+);
+
+app.get('/api/v1/Usuario', authMiddleware, requireRole('admin'), (req: Request, res: Response) =>
   adminController.findAll(req, res),
 );
 
-app.get('/api/v1/Usuario/search/:criterio', validateSearchCriteria, (req: Request, res: Response) =>
+app.get('/api/v1/Usuario/search/:criterio', authMiddleware, requireRole('admin'), validateSearchCriteria, (req: Request, res: Response) =>
   adminController.findByCriterio(req, res),
 );
 
-app.get('/api/v1/Usuario/:id', validateId, (req: Request, res: Response) =>
+app.get('/api/v1/Usuario/:id', authMiddleware, requireSelfOrRole('admin'), (req: Request, res: Response) =>
   adminController.findById(req, res),
 );
 
-app.patch('/api/v1/Usuario/:id', validateUserUpdate, (req: Request, res: Response) =>
+app.patch('/api/v1/Usuario/:id', authMiddleware, requireSelfOrRole('admin'), validateUserUpdate, (req: Request, res: Response) =>
   adminController.update(req, res),
 );
 
-app.patch('/api/v1/Usuario/:id/logical-delete', validateId, (req: Request, res: Response) =>
+app.patch('/api/v1/Usuario/:id/logical-delete', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
   adminController.logicalDelete(req, res),
 );
 
-app.delete('/api/v1/Usuario/:id', validateId, (req: Request, res: Response) =>
+app.delete('/api/v1/Usuario/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
   adminController.delete(req, res),
 );
 
-app.get('/api/v1/Reserva', (req: Request, res: Response) =>
+app.get('/api/v1/Reserva', authMiddleware, (req: Request, res: Response) =>
   reservaController.findAll(req, res),
 );
 
-app.get('/api/v1/Reserva/:id', validateId, (req: Request, res: Response) =>
+app.get('/api/v1/Reserva/:id', authMiddleware, validateId, (req: Request, res: Response) =>
   reservaController.findById(req, res),
 );
 
-app.post('/api/v1/Reserva', validateReservaBody, (req: Request, res: Response) =>
+app.post('/api/v1/Reserva', authMiddleware, validateReservaBody, (req: Request, res: Response) =>
   reservaController.create(req, res),
 );
 
-app.patch('/api/v1/Reserva/:id', validateId, validateReservaUpdate, (req: Request, res: Response) =>
+app.patch('/api/v1/Reserva/:id', authMiddleware, validateId, validateReservaUpdate, (req: Request, res: Response) =>
   reservaController.update(req, res),
 );
 
-app.patch('/api/v1/Reserva/:id/logical-delete', validateId, (req: Request, res: Response) =>
+app.patch('/api/v1/Reserva/:id/logical-delete', authMiddleware, validateId, (req: Request, res: Response) =>
   reservaController.logicalDelete(req, res),
 );
 
-app.delete('/api/v1/Reserva/:id', validateId, (req: Request, res: Response) =>
+app.delete('/api/v1/Reserva/:id', authMiddleware, requireRole('admin'), validateId, (req: Request, res: Response) =>
   reservaController.delete(req, res),
 );
 

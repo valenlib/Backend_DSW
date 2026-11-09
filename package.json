@@ -1,12 +1,13 @@
 {
   "name": "dsw",
+  "packageManager": "pnpm@11.9.0",
   "type": "module",
   "version": "1.0.0",
   "description": "backend del proyecto de DSW",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\""
+    "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node --env-file-if-exists=.env ./dist/app.js\""
   },
   "keywords": [],
   "author": "",
@@ -20,14 +21,18 @@
   },
   "homepage": "https://github.com/valenlib/Backend_DSW#readme",
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.7.0",
     "prettier": "^3.8.3",
     "tsc-watch": "^7.2.1",
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.24.6"
   }
 }

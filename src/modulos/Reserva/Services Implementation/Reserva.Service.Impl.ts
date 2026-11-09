@@ -4,6 +4,8 @@ import ReservaService from '../Services/Reserva.Service';
 import RespuestaReservaDto from '../dto/respuesta-reserva.dto';
 import CrearReservaDto from '../dto/crear-reserva.dto';
 import ActualizarReservaDto from '../dto/actualizar-reserva.dto';
+import { UserRole } from '../../../shared/JWT/AuthJWT';
+import { HttpError } from '../../../shared/error-handler';
 
 type ReservaRow = RowDataPacket & {
   id_reserva: number;
@@ -36,42 +38,62 @@ export default class ReservaServiceImpl extends ReservaService {
     );
   }
 
-  async findAll(): Promise<RespuestaReservaDto[]> {
+  async findAll(userId: number, role: UserRole): Promise<RespuestaReservaDto[]> {
+    const ownerFilter = role === 'admin' ? '' : ' AND r.id_usuario = ?';
+    const params = role === 'admin' ? [] : [userId];
     const [rows] = await db.query<ReservaRow[]>(
-      `${this.selectQuery} WHERE r.activa = TRUE ORDER BY r.id_reserva`,
+      `${this.selectQuery} WHERE r.activa = TRUE${ownerFilter} ORDER BY r.id_reserva`,
+      params,
     );
     return rows.map((row) => this.toDto(row));
   }
 
-  async findById(id: number): Promise<RespuestaReservaDto | undefined> {
+  async findById(
+    id: number,
+    userId: number,
+    role: UserRole,
+  ): Promise<RespuestaReservaDto | undefined> {
+    const ownerFilter = role === 'admin' ? '' : ' AND r.id_usuario = ?';
+    const params = role === 'admin' ? [id] : [id, userId];
     const [rows] = await db.query<ReservaRow[]>(
-      `${this.selectQuery} WHERE r.id_reserva = ? AND r.activa = TRUE`,
-      [id],
+      `${this.selectQuery} WHERE r.id_reserva = ? AND r.activa = TRUE${ownerFilter}`,
+      params,
     );
     return rows[0] ? this.toDto(rows[0]) : undefined;
   }
 
   async create(
     reserva: CrearReservaDto,
+    userId: number,
+    role: UserRole,
   ): Promise<RespuestaReservaDto | undefined> {
+    const ownerId = role === 'admin' ? reserva.idUsuario : userId;
     const [result] = await db.execute<ResultSetHeader>(
       `INSERT INTO reservas
        (id_viaje, id_usuario, estado, cantidad_pasajes)
        VALUES (?, ?, 'pendiente', ?)`,
-      [reserva.idViaje, reserva.idUsuario, reserva.cantidadPasajes],
+      [reserva.idViaje, ownerId, reserva.cantidadPasajes],
     );
-    return this.findById(result.insertId);
+    return this.findById(result.insertId, userId, role);
   }
 
   async update(
     id: number,
     reserva: ActualizarReservaDto,
+    userId: number,
+    role: UserRole,
   ): Promise<RespuestaReservaDto | undefined> {
     const fields = Object.entries(reserva).filter(
       ([, value]) => value !== undefined,
     ) as [keyof ActualizarReservaDto, number][];
+    if (role !== 'admin' && fields.some(([field]) => field === 'idUsuario')) {
+      throw new HttpError(
+        'No puede cambiar el propietario de una reserva',
+        403,
+      );
+    }
     if (fields.length === 0) {
-      return this.findById(id);
+      return this.findById(id, userId, role);
     }
 
     const columnMap: Record<string, string> = {
@@ -81,30 +103,45 @@ export default class ReservaServiceImpl extends ReservaService {
     };
     const values: (number | string)[] = fields.map(([, value]) => value);
     values.push(id);
+    const ownerFilter = role === 'admin' ? '' : ' AND id_usuario = ?';
+    if (role !== 'admin') {
+      values.push(userId);
+    }
     const [result] = await db.execute<ResultSetHeader>(
       `UPDATE reservas SET ${fields
         .map(([field]) => `${columnMap[field]} = ?`)
-        .join(', ')} WHERE id_reserva = ? AND activa = TRUE`,
+        .join(', ')} WHERE id_reserva = ? AND activa = TRUE${ownerFilter}`,
       values,
     );
-    return result.affectedRows ? this.findById(id) : undefined;
+    return result.affectedRows
+      ? this.findById(id, userId, role)
+      : undefined;
   }
 
-  async logicalDelete(id: number): Promise<RespuestaReservaDto | undefined> {
-    const reserva = await this.findById(id);
+  async logicalDelete(
+    id: number,
+    userId: number,
+    role: UserRole,
+  ): Promise<RespuestaReservaDto | undefined> {
+    const reserva = await this.findById(id, userId, role);
     if (!reserva) {
       return undefined;
     }
 
     await db.execute(
-      'UPDATE reservas SET activa = FALSE WHERE id_reserva = ? AND activa = TRUE',
-      [id],
+      `UPDATE reservas SET activa = FALSE
+       WHERE id_reserva = ? AND activa = TRUE${role === 'admin' ? '' : ' AND id_usuario = ?'}`,
+      role === 'admin' ? [id] : [id, userId],
     );
     return reserva;
   }
 
   async delete(id: number): Promise<RespuestaReservaDto | undefined> {
-    const reserva = await this.findById(id);
+    const [rows] = await db.query<ReservaRow[]>(
+      `${this.selectQuery} WHERE r.id_reserva = ? AND r.activa = TRUE`,
+      [id],
+    );
+    const reserva = rows[0] ? this.toDto(rows[0]) : undefined;
     if (!reserva) {
       return undefined;
     }

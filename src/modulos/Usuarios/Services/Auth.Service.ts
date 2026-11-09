@@ -11,6 +11,10 @@ export abstract class AuthService {
   abstract logout(
     userRequest: LogoutUserDto,
   ): Promise<RespuestaLogoutDto | undefined>;
+
+  abstract refresh(
+    refreshToken: string,
+  ): Promise<RespuestaLoginDto | undefined>;
 }
 
 export default AuthService;
