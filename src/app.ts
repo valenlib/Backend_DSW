@@ -24,7 +24,7 @@ import {
   validateReservaBody,
   validateReservaUpdate,
 } from './shared/Validaciones/reserva-validation';
-import { HttpError } from './shared/error-handler';
+import { HttpError, logUnexpectedError } from './shared/error-handler';
 
 const app = express();
 //post -> crear un recurso
@@ -109,11 +109,13 @@ const server = app.listen(3000, async () => {
   try {
     await testDatabaseConnection();
     console.log('Server is running on http://localhost:3000/');
-  } catch {
+  } catch (error) {
+    logUnexpectedError('startup failure', error);
     server.close(async () => {
       try {
         await closeDatabaseConnection();
-      } catch {
+      } catch (closeError) {
+        logUnexpectedError('database shutdown failure', closeError);
         process.exitCode = 1;
       }
       process.exitCode = 1;
@@ -121,17 +123,24 @@ const server = app.listen(3000, async () => {
   }
 });
 
+let shuttingDown = false;
+
 async function shutdown(signal: string): Promise<void> {
+  if (shuttingDown) {
+    return;
+  }
+  shuttingDown = true;
   console.log(`${signal} received, shutting down`);
   server.close(async (error) => {
     if (error) {
-      console.error('Unable to close the HTTP server', error);
+      logUnexpectedError('HTTP server shutdown failure', error);
       process.exitCode = 1;
     }
 
     try {
       await closeDatabaseConnection();
-    } catch {
+    } catch (closeError) {
+      logUnexpectedError('database shutdown failure', closeError);
       process.exitCode = 1;
     }
   });
@@ -139,3 +148,11 @@ async function shutdown(signal: string): Promise<void> {
 
 process.once('SIGINT', () => void shutdown('SIGINT'));
 process.once('SIGTERM', () => void shutdown('SIGTERM'));
+process.on('unhandledRejection', (reason) => {
+  logUnexpectedError('unhandled promise rejection', reason);
+  void shutdown('unhandled promise rejection');
+});
+process.on('uncaughtException', (error) => {
+  logUnexpectedError('uncaught exception', error);
+  void shutdown('uncaught exception');
+});
