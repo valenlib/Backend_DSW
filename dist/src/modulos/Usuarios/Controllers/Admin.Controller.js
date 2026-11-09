@@ -9,7 +9,7 @@ export class AdminController {
     async findById(req, res) {
         const response = await this.adminService.findById(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Usuario no encontrado' });
+            res.status(404).json({ message: "Usuario no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -21,7 +21,7 @@ export class AdminController {
     async update(req, res) {
         const response = await this.adminService.update(Number(req.params.id), req.body);
         if (!response) {
-            res.status(404).json({ message: 'Usuario no encontrado' });
+            res.status(404).json({ message: "Usuario no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -29,7 +29,7 @@ export class AdminController {
     async delete(req, res) {
         const response = await this.adminService.delete(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Usuario no encontrado' });
+            res.status(404).json({ message: "Usuario no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -37,7 +37,7 @@ export class AdminController {
     async logicalDelete(req, res) {
         const response = await this.adminService.logicalDelete(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Usuario no encontrado' });
+            res.status(404).json({ message: "Usuario no encontrado" });
             return;
         }
         res.status(200).json(response);

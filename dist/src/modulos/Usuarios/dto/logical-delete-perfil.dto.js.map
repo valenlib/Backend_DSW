@@ -1,1 +1,1 @@
-{"version":3,"file":"logical-delete-perfil.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/logical-delete-perfil.dto.ts"],"names":[],"mappings":"AAAA,MAAM,sBAAsB;IAGxB,YACI,EAAU;QAEV,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;IACjB,CAAC;CACJ;AACD,eAAe,sBAAsB,CAAC"}
+{"version":3,"file":"logical-delete-perfil.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/logical-delete-perfil.dto.ts"],"names":[],"mappings":"AAAA,MAAM,sBAAsB;IAG1B,YAAY,EAAU;QACpB,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;IACf,CAAC;CACF;AACD,eAAe,sBAAsB,CAAC"}

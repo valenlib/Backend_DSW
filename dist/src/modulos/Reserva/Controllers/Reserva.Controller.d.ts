@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import ReservaService from '../Services/Reserva.Service';
+import { Request, Response } from "express";
+import ReservaService from "../Services/Reserva.Service.js";
 export default class ReservaController {
     private readonly reservaService;
     constructor(reservaService: ReservaService);

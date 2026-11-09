@@ -1,10 +1,8 @@
 class LogoutUserDto {
-    public refreshToken?: string;
+  public refreshToken?: string;
 
-    constructor(
-        refreshToken?: string,
-    ) {
-        this.refreshToken = refreshToken;
-    }
-}   
+  constructor(refreshToken?: string) {
+    this.refreshToken = refreshToken;
+  }
+}
 export default LogoutUserDto;

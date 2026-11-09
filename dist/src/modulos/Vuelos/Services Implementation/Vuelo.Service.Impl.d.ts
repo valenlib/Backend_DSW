@@ -1,7 +1,7 @@
-import VueloService from '../Services/Vuelo.Service';
-import CrearVueloDto from '../dto/crear-vuelo.dto';
-import ActualizarVueloDto from '../dto/actualizar-vuelo.dto';
-import RespuestaVueloDto from '../dto/respuesta-vuelo.dto';
+import VueloService from "../Services/Vuelo.Service.js";
+import CrearVueloDto from "../dto/crear-vuelo.dto.js";
+import ActualizarVueloDto from "../dto/actualizar-vuelo.dto.js";
+import RespuestaVueloDto from "../dto/respuesta-vuelo.dto.js";
 export default class VueloServiceImpl extends VueloService {
     private readonly selectQuery;
     private toDto;

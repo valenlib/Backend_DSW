@@ -1,4 +1,4 @@
-export type EstadoVuelo = 'en hora' | 'cancelado' | 'demorado';
+export type EstadoVuelo = "en hora" | "cancelado" | "demorado";
 
 class Vuelo {
   private _id: number;
@@ -9,12 +9,11 @@ class Vuelo {
   private _fechaLlegada: string;
   private _horaSalida: string;
   private _horaLlegada: string;
-  private _precio: number;  
+  private _precio: number;
   private _estado: EstadoVuelo;
   private _nuevoHorario: string;
-  
 
-  constructor (
+  constructor(
     id: number,
     avion: string,
     origen: string,
@@ -24,9 +23,8 @@ class Vuelo {
     horaSalida: string,
     horaLlegada: string,
     precio: number,
-    estado: EstadoVuelo = 'en hora',
-    nuevoHorario: string = '',
-    
+    estado: EstadoVuelo = "en hora",
+    nuevoHorario: string = "",
   ) {
     this._id = id;
     this._avion = avion;
@@ -39,7 +37,6 @@ class Vuelo {
     this._precio = precio;
     this._estado = estado;
     this._nuevoHorario = nuevoHorario;
-    
   }
   // Getters
   get id() {
@@ -69,7 +66,6 @@ class Vuelo {
   get nuevoHorario() {
     return this._nuevoHorario;
   }
-  
 
   // Setters
   set id(id: number) {
@@ -80,7 +76,7 @@ class Vuelo {
   }
   set origen(origen: string) {
     this._origen = origen;
-  } 
+  }
   set destino(destino: string) {
     this._destino = destino;
   }
@@ -99,8 +95,7 @@ class Vuelo {
   set nuevoHorario(nuevoHorario: string) {
     this._nuevoHorario = nuevoHorario;
   }
-  
-  
+
   set horaSalida(horaSalida: string) {
     this._horaSalida = horaSalida;
   }

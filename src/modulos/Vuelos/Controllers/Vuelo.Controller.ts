@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import VueloService from '../Services/Vuelo.Service';
+import { Request, Response } from "express";
+import VueloService from "../Services/Vuelo.Service.js";
 
 export default class VueloController {
   constructor(private readonly vueloService: VueloService) {}
@@ -11,7 +11,7 @@ export default class VueloController {
   async findById(req: Request, res: Response): Promise<void> {
     const response = await this.vueloService.findById(Number(req.params.id));
     if (!response) {
-      res.status(404).json({ message: 'Vuelo no encontrado' });
+      res.status(404).json({ message: "Vuelo no encontrado" });
       return;
     }
     res.status(200).json(response);
@@ -28,7 +28,7 @@ export default class VueloController {
       req.body,
     );
     if (!response) {
-      res.status(404).json({ message: 'Vuelo no encontrado' });
+      res.status(404).json({ message: "Vuelo no encontrado" });
       return;
     }
     res.status(200).json(response);
@@ -37,7 +37,7 @@ export default class VueloController {
   async delete(req: Request, res: Response): Promise<void> {
     const response = await this.vueloService.delete(Number(req.params.id));
     if (!response) {
-      res.status(404).json({ message: 'Vuelo no encontrado' });
+      res.status(404).json({ message: "Vuelo no encontrado" });
       return;
     }
     res.status(200).json(response);

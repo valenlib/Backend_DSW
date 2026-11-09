@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import PerfilService from '../Services/Perfil.Service';
+import { Request, Response } from "express";
+import PerfilService from "../Services/Perfil.Service.js";
 export declare class PerfilController {
     private readonly perfilService;
     constructor(perfilService: PerfilService);

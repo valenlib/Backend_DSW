@@ -1,6 +1,6 @@
-import RespuestaAeropuertoDto from '../dto/respuesta-aeropuerto.dto';
-import CrearAeropuertoDto from '../dto/crear-aeropuerto.dto';
-import ActualizarAeropuertoDto from '../dto/actualizar-aeropuerto.dto';
+import RespuestaAeropuertoDto from "../dto/respuesta-aeropuerto.dto.js";
+import CrearAeropuertoDto from "../dto/crear-aeropuerto.dto.js";
+import ActualizarAeropuertoDto from "../dto/actualizar-aeropuerto.dto.js";
 
 export default abstract class AeropuertoService {
   abstract findAll(): Promise<RespuestaAeropuertoDto[]>;

@@ -1,4 +1,4 @@
-import type Vuelo from '../../Vuelos/Entity/Vuelo.Entity';
+import type Vuelo from "../../Vuelos/Entity/Vuelo.Entity.js";
 declare class Pasaje {
     private _id;
     private _vuelo;

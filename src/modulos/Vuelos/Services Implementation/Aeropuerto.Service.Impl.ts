@@ -1,9 +1,9 @@
-import type { ResultSetHeader, RowDataPacket } from 'mysql2';
-import db from '../../../shared/conn.mysql';
-import AeropuertoService from '../Services/Aeropuerto.Service';
-import CrearAeropuertoDto from '../dto/crear-aeropuerto.dto';
-import ActualizarAeropuertoDto from '../dto/actualizar-aeropuerto.dto';
-import RespuestaAeropuertoDto from '../dto/respuesta-aeropuerto.dto';
+import type { ResultSetHeader, RowDataPacket } from "mysql2";
+import db from "../../../shared/conn.mysql.js";
+import AeropuertoService from "../Services/Aeropuerto.Service.js";
+import CrearAeropuertoDto from "../dto/crear-aeropuerto.dto.js";
+import ActualizarAeropuertoDto from "../dto/actualizar-aeropuerto.dto.js";
+import RespuestaAeropuertoDto from "../dto/respuesta-aeropuerto.dto.js";
 
 type AeropuertoRow = RowDataPacket & {
   id_aeropuerto: number;
@@ -66,7 +66,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
     const [result] = await db.execute<ResultSetHeader>(
       `UPDATE aeropuertos SET ${fields
         .map(([field]) => `${field} = ?`)
-        .join(', ')}
+        .join(", ")}
        WHERE id_aeropuerto = ? AND activo = TRUE`,
       values,
     );
@@ -80,7 +80,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
     }
 
     await db.execute(
-      'UPDATE aeropuertos SET activo = FALSE WHERE id_aeropuerto = ? AND activo = TRUE',
+      "UPDATE aeropuertos SET activo = FALSE WHERE id_aeropuerto = ? AND activo = TRUE",
       [id],
     );
     return aeropuerto;
@@ -92,7 +92,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
       return undefined;
     }
 
-    await db.execute('DELETE FROM aeropuertos WHERE id_aeropuerto = ?', [id]);
+    await db.execute("DELETE FROM aeropuertos WHERE id_aeropuerto = ?", [id]);
     return aeropuerto;
   }
 }

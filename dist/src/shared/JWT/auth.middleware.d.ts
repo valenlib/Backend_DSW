@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from 'express';
-import { AuthPayload, UserRole } from './AuthJWT';
+import type { NextFunction, Request, Response } from "express";
+import { AuthPayload, UserRole } from "./AuthJWT.js";
 declare global {
     namespace Express {
         interface Request {

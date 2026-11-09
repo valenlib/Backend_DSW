@@ -1,11 +1,9 @@
 class DeleteAsientoDto {
-    public numero: string;
+  public numero: string;
 
-    constructor(
-        numero: string,
-    ) {
-        this.numero = numero;
-    }
+  constructor(numero: string) {
+    this.numero = numero;
+  }
 }
 
 export default DeleteAsientoDto;

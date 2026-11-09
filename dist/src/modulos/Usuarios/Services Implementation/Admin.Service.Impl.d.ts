@@ -1,5 +1,5 @@
-import AdminService, { UsuarioUpdate } from '../Services/Admin.Service';
-import RespuestaAdminDto from '../dto/respuesta-admin.dto';
+import AdminService, { UsuarioUpdate } from "../Services/Admin.Service.js";
+import RespuestaAdminDto from "../dto/respuesta-admin.dto.js";
 export declare class AdminServiceImpl extends AdminService {
     findAll(): Promise<RespuestaAdminDto[]>;
     findById(id: number): Promise<RespuestaAdminDto | undefined>;

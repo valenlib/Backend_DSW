@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-avion.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-avion.dto.ts"],"names":[],"mappings":"AAAA,cAAM,cAAc;IACT,SAAS,EAAE,MAAM,CAAC;gBAGrB,SAAS,EAAE,MAAM;CAIxB;AAED,eAAe,cAAc,CAAC"}
+{"version":3,"file":"delete-avion.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-avion.dto.ts"],"names":[],"mappings":"AAAA,cAAM,cAAc;IACX,SAAS,EAAE,MAAM,CAAC;gBAEb,SAAS,EAAE,MAAM;CAG9B;AAED,eAAe,cAAc,CAAC"}

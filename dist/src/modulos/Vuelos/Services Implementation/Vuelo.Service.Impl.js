@@ -1,6 +1,6 @@
-import db from '../../../shared/conn.mysql';
-import VueloService from '../Services/Vuelo.Service';
-import RespuestaVueloDto from '../dto/respuesta-vuelo.dto';
+import db from "../../../shared/conn.mysql.js";
+import VueloService from "../Services/Vuelo.Service.js";
+import RespuestaVueloDto from "../dto/respuesta-vuelo.dto.js";
 export default class VueloServiceImpl extends VueloService {
     constructor() {
         super(...arguments);
@@ -53,19 +53,19 @@ export default class VueloServiceImpl extends VueloService {
             return this.findById(id);
         }
         const columnMap = {
-            idAeropuertoOrigen: 'id_aeropuerto_origen',
-            idAeropuertoDestino: 'id_aeropuerto_destino',
-            fechaSalida: 'fecha_salida',
-            fechaLlegada: 'fecha_llegada',
-            precio: 'precio',
-            estado: 'estado',
-            nuevoHorario: 'nuevo_horario',
+            idAeropuertoOrigen: "id_aeropuerto_origen",
+            idAeropuertoDestino: "id_aeropuerto_destino",
+            fechaSalida: "fecha_salida",
+            fechaLlegada: "fecha_llegada",
+            precio: "precio",
+            estado: "estado",
+            nuevoHorario: "nuevo_horario",
         };
         const values = fields.map(([, value]) => value);
         values.push(id);
         const [result] = await db.execute(`UPDATE vuelos SET ${fields
             .map(([field]) => `${columnMap[field]} = ?`)
-            .join(', ')}
+            .join(", ")}
        WHERE id_vuelo = ? AND estado <> 'cancelado'`, values);
         return result.affectedRows
             ? this.findByIdIncludingCancelled(id)
@@ -76,7 +76,7 @@ export default class VueloServiceImpl extends VueloService {
         if (!vuelo) {
             return undefined;
         }
-        await db.execute('DELETE FROM vuelos WHERE id_vuelo = ?', [id]);
+        await db.execute("DELETE FROM vuelos WHERE id_vuelo = ?", [id]);
         return vuelo;
     }
 }

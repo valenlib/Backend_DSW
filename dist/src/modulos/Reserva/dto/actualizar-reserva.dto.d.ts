@@ -1,5 +1,8 @@
 declare class ActualizarReservaDto {
-    constructor(id: number, idVuelo?: number, nombrePasajero?: string, emailPasajero?: string, cantidadPasajes?: number);
+    idVuelo?: number | undefined;
+    idUsuario?: number | undefined;
+    cantidadPasajes?: number | undefined;
+    constructor(idVuelo?: number | undefined, idUsuario?: number | undefined, cantidadPasajes?: number | undefined);
 }
 export default ActualizarReservaDto;
 //# sourceMappingURL=actualizar-reserva.dto.d.ts.map

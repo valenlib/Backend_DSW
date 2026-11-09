@@ -1,6 +1,6 @@
-import RegistroService from '../Services/Registro.service';
-import RespuestaRegistroDto from '../dto/respuesta-registro.dto';
-import CrearUsuarioDto from '../dto/crear-usuario.dto';
+import RegistroService from "../Services/Registro.service.js";
+import RespuestaRegistroDto from "../dto/respuesta-registro.dto.js";
+import CrearUsuarioDto from "../dto/crear-usuario.dto.js";
 export declare class RegistroServiceImpl extends RegistroService {
     registrarUsuario(usuario: CrearUsuarioDto): Promise<RespuestaRegistroDto | undefined>;
 }

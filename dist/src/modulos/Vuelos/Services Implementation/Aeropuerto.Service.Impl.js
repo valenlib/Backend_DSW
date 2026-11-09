@@ -1,6 +1,6 @@
-import db from '../../../shared/conn.mysql';
-import AeropuertoService from '../Services/Aeropuerto.Service';
-import RespuestaAeropuertoDto from '../dto/respuesta-aeropuerto.dto';
+import db from "../../../shared/conn.mysql.js";
+import AeropuertoService from "../Services/Aeropuerto.Service.js";
+import RespuestaAeropuertoDto from "../dto/respuesta-aeropuerto.dto.js";
 export default class AeropuertoServiceImpl extends AeropuertoService {
     toDto(row) {
         return new RespuestaAeropuertoDto(row.id_aeropuerto, row.nombre, row.ciudad, row.pais);
@@ -29,7 +29,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
         values.push(String(id));
         const [result] = await db.execute(`UPDATE aeropuertos SET ${fields
             .map(([field]) => `${field} = ?`)
-            .join(', ')}
+            .join(", ")}
        WHERE id_aeropuerto = ? AND activo = TRUE`, values);
         return result.affectedRows ? this.findById(id) : undefined;
     }
@@ -38,7 +38,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
         if (!aeropuerto) {
             return undefined;
         }
-        await db.execute('UPDATE aeropuertos SET activo = FALSE WHERE id_aeropuerto = ? AND activo = TRUE', [id]);
+        await db.execute("UPDATE aeropuertos SET activo = FALSE WHERE id_aeropuerto = ? AND activo = TRUE", [id]);
         return aeropuerto;
     }
     async delete(id) {
@@ -46,7 +46,7 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
         if (!aeropuerto) {
             return undefined;
         }
-        await db.execute('DELETE FROM aeropuertos WHERE id_aeropuerto = ?', [id]);
+        await db.execute("DELETE FROM aeropuertos WHERE id_aeropuerto = ?", [id]);
         return aeropuerto;
     }
 }

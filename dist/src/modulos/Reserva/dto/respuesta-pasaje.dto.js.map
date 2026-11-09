@@ -1,1 +1,1 @@
-{"version":3,"file":"respuesta-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/respuesta-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,kBAAkB;IACpB,YACI,EAAU,EACV,MAAc,EACd,KAAa,EACb,IAAY,EACZ,MAAc,EACd,OAAe,IAChB,CAAC;CACP;AAED,eAAe,kBAAkB,CAAC"}
+{"version":3,"file":"respuesta-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/respuesta-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,kBAAkB;IACtB,YACE,EAAU,EACV,MAAc,EACd,KAAa,EACb,IAAY,EACZ,MAAc,EACd,OAAe,IACd,CAAC;CACL;AAED,eAAe,kBAAkB,CAAC"}

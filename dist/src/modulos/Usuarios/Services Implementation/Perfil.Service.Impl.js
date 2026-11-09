@@ -1,4 +1,4 @@
-import PerfilService from '../Services/Perfil.Service';
+import PerfilService from "../Services/Perfil.Service.js";
 export class PerfilServiceImpl extends PerfilService {
     async actualizarPerfil(perfilRequest) {
         return undefined;

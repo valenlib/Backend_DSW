@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-asiento.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-asiento.dto.ts"],"names":[],"mappings":"AAAA,cAAM,gBAAgB;IACX,MAAM,EAAE,MAAM,CAAC;gBAGlB,MAAM,EAAE,MAAM;CAIrB;AAED,eAAe,gBAAgB,CAAC"}
+{"version":3,"file":"delete-asiento.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-asiento.dto.ts"],"names":[],"mappings":"AAAA,cAAM,gBAAgB;IACb,MAAM,EAAE,MAAM,CAAC;gBAEV,MAAM,EAAE,MAAM;CAG3B;AAED,eAAe,gBAAgB,CAAC"}

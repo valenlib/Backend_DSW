@@ -1,7 +1,5 @@
 class DeletePasajeDto {
-    constructor(
-        id: number
-    ) {}
+  constructor(id: number) {}
 }
 
 export default DeletePasajeDto;

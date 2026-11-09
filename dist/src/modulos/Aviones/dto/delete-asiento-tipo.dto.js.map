@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-asiento-tipo.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-asiento-tipo.dto.ts"],"names":[],"mappings":"AAAA,MAAM,oBAAoB;IAGtB,YACI,MAAc;QAEd,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACzB,CAAC;CACJ;AAED,eAAe,oBAAoB,CAAC"}
+{"version":3,"file":"delete-asiento-tipo.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/delete-asiento-tipo.dto.ts"],"names":[],"mappings":"AAAA,MAAM,oBAAoB;IAGxB,YAAY,MAAc;QACxB,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACvB,CAAC;CACF;AAED,eAAe,oBAAoB,CAAC"}

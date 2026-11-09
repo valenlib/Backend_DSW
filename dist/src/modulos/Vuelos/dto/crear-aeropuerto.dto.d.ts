@@ -1,4 +1,7 @@
 declare class CrearAeropuertoDto {
+    nombre: string;
+    ciudad: string;
+    pais: string;
     constructor(nombre: string, ciudad: string, pais: string);
 }
 export default CrearAeropuertoDto;

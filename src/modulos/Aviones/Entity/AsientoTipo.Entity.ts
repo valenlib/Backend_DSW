@@ -3,11 +3,7 @@ class AsientoTipo {
   private descripcion: string;
   private precioExtra: number;
 
-  constructor(
-    nombre: string,
-    descripcion: string,
-    precioExtra: number,
-  ) {
+  constructor(nombre: string, descripcion: string, precioExtra: number) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precioExtra = precioExtra;

@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from 'express';
-import { HttpError } from '../error-handler';
+import type { NextFunction, Request, Response } from "express";
+import { HttpError } from "../error-handler.js";
 
 function positiveInteger(value: unknown): value is number {
   return Number.isInteger(value) && Number(value) > 0;
@@ -18,7 +18,7 @@ export function validateReservaBody(
   ) {
     next(
       new HttpError(
-        'idVuelo, idUsuario y cantidadPasajes deben ser enteros positivos',
+        "idVuelo, idUsuario y cantidadPasajes deben ser enteros positivos",
         400,
       ),
     );
@@ -36,11 +36,8 @@ export function validateReservaUpdate(
   const values = [idVuelo, idUsuario, cantidadPasajes].filter(
     (value) => value !== undefined,
   );
-  if (
-    values.length === 0 ||
-    values.some((value) => !positiveInteger(value))
-  ) {
-    next(new HttpError('Debe enviar campos válidos para actualizar', 400));
+  if (values.length === 0 || values.some((value) => !positiveInteger(value))) {
+    next(new HttpError("Debe enviar campos válidos para actualizar", 400));
     return;
   }
   next();

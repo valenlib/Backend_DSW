@@ -1,1 +1,1 @@
-{"version":3,"file":"crear-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/crear-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,cAAc;IAChB,YACI,MAAc,EACd,KAAa,EACb,IAAY,EACZ,MAAc,EACd,OAAe,IAChB,CAAC;CACP;AAED,eAAe,cAAc,CAAC"}
+{"version":3,"file":"crear-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/crear-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,cAAc;IAClB,YACE,MAAc,EACd,KAAa,EACb,IAAY,EACZ,MAAc,EACd,OAAe,IACd,CAAC;CACL;AAED,eAAe,cAAc,CAAC"}

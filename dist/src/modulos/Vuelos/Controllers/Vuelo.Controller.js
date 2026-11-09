@@ -8,7 +8,7 @@ export default class VueloController {
     async findById(req, res) {
         const response = await this.vueloService.findById(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Vuelo no encontrado' });
+            res.status(404).json({ message: "Vuelo no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -20,7 +20,7 @@ export default class VueloController {
     async update(req, res) {
         const response = await this.vueloService.update(Number(req.params.id), req.body);
         if (!response) {
-            res.status(404).json({ message: 'Vuelo no encontrado' });
+            res.status(404).json({ message: "Vuelo no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -28,7 +28,7 @@ export default class VueloController {
     async delete(req, res) {
         const response = await this.vueloService.delete(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Vuelo no encontrado' });
+            res.status(404).json({ message: "Vuelo no encontrado" });
             return;
         }
         res.status(200).json(response);

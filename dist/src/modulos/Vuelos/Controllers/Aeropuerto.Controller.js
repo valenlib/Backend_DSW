@@ -8,7 +8,7 @@ export default class AeropuertoController {
     async findById(req, res) {
         const response = await this.aeropuertoService.findById(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Aeropuerto no encontrado' });
+            res.status(404).json({ message: "Aeropuerto no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -20,7 +20,7 @@ export default class AeropuertoController {
     async update(req, res) {
         const response = await this.aeropuertoService.update(Number(req.params.id), req.body);
         if (!response) {
-            res.status(404).json({ message: 'Aeropuerto no encontrado' });
+            res.status(404).json({ message: "Aeropuerto no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -28,7 +28,7 @@ export default class AeropuertoController {
     async logicalDelete(req, res) {
         const response = await this.aeropuertoService.logicalDelete(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Aeropuerto no encontrado' });
+            res.status(404).json({ message: "Aeropuerto no encontrado" });
             return;
         }
         res.status(200).json(response);
@@ -36,7 +36,7 @@ export default class AeropuertoController {
     async delete(req, res) {
         const response = await this.aeropuertoService.delete(Number(req.params.id));
         if (!response) {
-            res.status(404).json({ message: 'Aeropuerto no encontrado' });
+            res.status(404).json({ message: "Aeropuerto no encontrado" });
             return;
         }
         res.status(200).json(response);

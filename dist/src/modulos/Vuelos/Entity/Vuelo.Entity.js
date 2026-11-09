@@ -1,5 +1,5 @@
 class Vuelo {
-    constructor(id, avion, origen, destino, fechaSalida, fechaLlegada, horaSalida, horaLlegada, precio, estado = 'en hora', nuevoHorario = '') {
+    constructor(id, avion, origen, destino, fechaSalida, fechaLlegada, horaSalida, horaLlegada, precio, estado = "en hora", nuevoHorario = "") {
         this._id = id;
         this._avion = avion;
         this._origen = origen;

@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-reserva.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/delete-reserva.dto.ts"],"names":[],"mappings":"AAAA,MAAM,gBAAgB;IAClB,YACI,EAAU,IACX,CAAC;CACP;AAED,eAAe,gBAAgB,CAAC"}
+{"version":3,"file":"delete-reserva.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/delete-reserva.dto.ts"],"names":[],"mappings":"AAAA,MAAM,gBAAgB;IACpB,YAAY,EAAU,IAAG,CAAC;CAC3B;AAED,eAAe,gBAAgB,CAAC"}

@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import AeropuertoService from '../Services/Aeropuerto.Service';
+import { Request, Response } from "express";
+import AeropuertoService from "../Services/Aeropuerto.Service.js";
 export default class AeropuertoController {
     private readonly aeropuertoService;
     constructor(aeropuertoService: AeropuertoService);

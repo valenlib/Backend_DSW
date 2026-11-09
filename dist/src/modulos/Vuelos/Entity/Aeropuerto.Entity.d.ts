@@ -3,7 +3,8 @@ declare class Aeropuerto {
     private nombre;
     private ciudad;
     private pais;
-    constructor(id: number, nombre: string, ciudad: string, pais: string);
+    private activo;
+    constructor(id: number, nombre: string, ciudad: string, pais: string, activo?: boolean);
     getId(): number;
     setId(id: number): void;
     getNombre(): string;
@@ -12,6 +13,8 @@ declare class Aeropuerto {
     setCiudad(ciudad: string): void;
     getPais(): string;
     setPais(pais: string): void;
+    getActivo(): boolean;
+    setActivo(activo: boolean): void;
 }
 export default Aeropuerto;
 //# sourceMappingURL=Aeropuerto.Entity.d.ts.map

@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import AeropuertoService from '../Services/Aeropuerto.Service';
+import { Request, Response } from "express";
+import AeropuertoService from "../Services/Aeropuerto.Service.js";
 
 export default class AeropuertoController {
   constructor(private readonly aeropuertoService: AeropuertoService) {}
@@ -13,7 +13,7 @@ export default class AeropuertoController {
       Number(req.params.id),
     );
     if (!response) {
-      res.status(404).json({ message: 'Aeropuerto no encontrado' });
+      res.status(404).json({ message: "Aeropuerto no encontrado" });
       return;
     }
 
@@ -31,7 +31,7 @@ export default class AeropuertoController {
       req.body,
     );
     if (!response) {
-      res.status(404).json({ message: 'Aeropuerto no encontrado' });
+      res.status(404).json({ message: "Aeropuerto no encontrado" });
       return;
     }
 
@@ -43,7 +43,7 @@ export default class AeropuertoController {
       Number(req.params.id),
     );
     if (!response) {
-      res.status(404).json({ message: 'Aeropuerto no encontrado' });
+      res.status(404).json({ message: "Aeropuerto no encontrado" });
       return;
     }
 
@@ -51,11 +51,9 @@ export default class AeropuertoController {
   }
 
   async delete(req: Request, res: Response): Promise<void> {
-    const response = await this.aeropuertoService.delete(
-      Number(req.params.id),
-    );
+    const response = await this.aeropuertoService.delete(Number(req.params.id));
     if (!response) {
-      res.status(404).json({ message: 'Aeropuerto no encontrado' });
+      res.status(404).json({ message: "Aeropuerto no encontrado" });
       return;
     }
 

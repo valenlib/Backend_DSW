@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-aeropuerto.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Vuelos/dto/delete-aeropuerto.dto.ts"],"names":[],"mappings":"AAAA,MAAM,mBAAmB;IACrB,YACI,EAAU,IACX,CAAC;CACP;AAED,eAAe,mBAAmB,CAAC"}
+{"version":3,"file":"delete-aeropuerto.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Vuelos/dto/delete-aeropuerto.dto.ts"],"names":[],"mappings":"AAAA,MAAM,mBAAmB;IACvB,YAAY,EAAU,IAAG,CAAC;CAC3B;AAED,eAAe,mBAAmB,CAAC"}

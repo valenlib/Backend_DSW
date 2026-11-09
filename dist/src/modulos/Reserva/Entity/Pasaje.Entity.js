@@ -6,7 +6,6 @@ class Pasaje {
         this._fecha = fecha;
         this._hora = hora;
     }
-    // Getters
     get id() {
         return this._id;
     }
@@ -22,7 +21,6 @@ class Pasaje {
     get hora() {
         return this._hora;
     }
-    // Setters
     set id(id) {
         this._id = id;
     }

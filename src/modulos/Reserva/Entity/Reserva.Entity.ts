@@ -1,4 +1,4 @@
-export type EstadoReserva = 'pendiente' | 'confirmada' | 'cancelada';
+export type EstadoReserva = "pendiente" | "confirmada" | "cancelada";
 
 class Reserva {
   private _id: number;
@@ -14,7 +14,7 @@ class Reserva {
     idVuelo: number,
     idUsuario: number,
     fechaReserva: string,
-    estado: EstadoReserva = 'pendiente',
+    estado: EstadoReserva = "pendiente",
     cantidadPasajes: number = 1,
     activa: boolean = true,
   ) {

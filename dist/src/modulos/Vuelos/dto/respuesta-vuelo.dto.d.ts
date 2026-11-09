@@ -1,5 +1,13 @@
 declare class RespuestaVueloDto {
-    constructor(id: number, avion: string, origen: string, destino: string, fecha: string, hora: string, precio: number);
+    id: number;
+    idAeropuertoOrigen: number;
+    idAeropuertoDestino: number;
+    fechaSalida: string;
+    fechaLlegada: string;
+    precio: number;
+    estado: string;
+    nuevoHorario: string | null;
+    constructor(id: number, idAeropuertoOrigen: number, idAeropuertoDestino: number, fechaSalida: string, fechaLlegada: string, precio: number, estado: string, nuevoHorario: string | null);
 }
 export default RespuestaVueloDto;
 //# sourceMappingURL=respuesta-vuelo.dto.d.ts.map

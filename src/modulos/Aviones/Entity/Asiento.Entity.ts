@@ -4,12 +4,7 @@ class Asiento {
   private avion: string;
   private ocupado: boolean;
 
-  constructor(
-    numero: string,
-    tipo: string,
-    avion: string,
-    ocupado: boolean,
-  ) {
+  constructor(numero: string, tipo: string, avion: string, ocupado: boolean) {
     this.numero = numero;
     this.tipo = tipo;
     this.avion = avion;

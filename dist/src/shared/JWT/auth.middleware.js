@@ -1,11 +1,11 @@
-import { HttpError } from '../error-handler';
-import { validarToken } from './AuthJWT';
+import { HttpError } from "../error-handler.js";
+import { validarToken } from "./AuthJWT.js";
 export function authMiddleware(req, res, next) {
     const authorization = req.headers.authorization;
-    const [scheme, token] = authorization?.split(' ') ?? [];
-    const payload = scheme === 'Bearer' && token ? validarToken(token) : null;
+    const [scheme, token] = authorization?.split(" ") ?? [];
+    const payload = scheme === "Bearer" && token ? validarToken(token) : null;
     if (!payload) {
-        next(new HttpError('Debe enviar un token de acceso válido', 401));
+        next(new HttpError("Debe enviar un token de acceso válido", 401));
         return;
     }
     req.auth = payload;
@@ -14,7 +14,7 @@ export function authMiddleware(req, res, next) {
 export function requireRole(...roles) {
     return (req, res, next) => {
         if (!req.auth || !roles.includes(req.auth.rol)) {
-            next(new HttpError('No tiene permisos para realizar esta operación', 403));
+            next(new HttpError("No tiene permisos para realizar esta operación", 403));
             return;
         }
         next();
@@ -28,7 +28,7 @@ export function requireSelfOrRole(...roles) {
             next();
             return;
         }
-        next(new HttpError('No tiene permisos para acceder a este recurso', 403));
+        next(new HttpError("No tiene permisos para acceder a este recurso", 403));
     };
 }
 //# sourceMappingURL=auth.middleware.js.map

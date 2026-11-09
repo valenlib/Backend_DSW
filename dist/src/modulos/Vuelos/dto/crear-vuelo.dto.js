@@ -1,5 +1,5 @@
 class CrearVueloDto {
-    constructor(idAeropuertoOrigen, idAeropuertoDestino, fechaSalida, fechaLlegada, precio, estado = 'en hora', nuevoHorario = null, horaSalida, horaLlegada) {
+    constructor(idAeropuertoOrigen, idAeropuertoDestino, fechaSalida, fechaLlegada, precio, estado = "en hora", nuevoHorario = null, horaSalida, horaLlegada) {
         this.idAeropuertoOrigen = idAeropuertoOrigen;
         this.idAeropuertoDestino = idAeropuertoDestino;
         this.fechaSalida = fechaSalida;

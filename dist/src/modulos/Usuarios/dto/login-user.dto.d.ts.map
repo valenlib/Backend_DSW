@@ -1,1 +1,1 @@
-{"version":3,"file":"login-user.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/login-user.dto.ts"],"names":[],"mappings":"AAAA,cAAM,YAAY;IACP,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,MAAM,CAAC;gBAGpB,KAAK,EAAE,MAAM,EACb,QAAQ,EAAE,MAAM;CAKvB;AACD,eAAe,YAAY,CAAC"}
+{"version":3,"file":"login-user.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/login-user.dto.ts"],"names":[],"mappings":"AAAA,cAAM,YAAY;IACT,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,MAAM,CAAC;gBAEZ,KAAK,EAAE,MAAM,EAAE,QAAQ,EAAE,MAAM;CAI5C;AACD,eAAe,YAAY,CAAC"}

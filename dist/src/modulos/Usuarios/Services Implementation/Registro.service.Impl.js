@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
-import db from '../../../shared/conn.mysql';
-import RegistroService from '../Services/Registro.service';
-import RespuestaRegistroDto from '../dto/respuesta-registro.dto';
+import bcrypt from "bcrypt";
+import db from "../../../shared/conn.mysql.js";
+import RegistroService from "../Services/Registro.service.js";
+import RespuestaRegistroDto from "../dto/respuesta-registro.dto.js";
 export class RegistroServiceImpl extends RegistroService {
     async registrarUsuario(usuario) {
         const passwordHash = await bcrypt.hash(usuario.password, 12);

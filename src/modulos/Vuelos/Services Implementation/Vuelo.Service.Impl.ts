@@ -1,9 +1,9 @@
-import type { ResultSetHeader, RowDataPacket } from 'mysql2';
-import db from '../../../shared/conn.mysql';
-import VueloService from '../Services/Vuelo.Service';
-import CrearVueloDto from '../dto/crear-vuelo.dto';
-import ActualizarVueloDto from '../dto/actualizar-vuelo.dto';
-import RespuestaVueloDto from '../dto/respuesta-vuelo.dto';
+import type { ResultSetHeader, RowDataPacket } from "mysql2";
+import db from "../../../shared/conn.mysql.js";
+import VueloService from "../Services/Vuelo.Service.js";
+import CrearVueloDto from "../dto/crear-vuelo.dto.js";
+import ActualizarVueloDto from "../dto/actualizar-vuelo.dto.js";
+import RespuestaVueloDto from "../dto/respuesta-vuelo.dto.js";
 
 type VueloRow = RowDataPacket & {
   id_vuelo: number;
@@ -12,7 +12,7 @@ type VueloRow = RowDataPacket & {
   fecha_salida: string;
   fecha_llegada: string;
   precio: number;
-  estado: 'en hora' | 'cancelado' | 'demorado';
+  estado: "en hora" | "cancelado" | "demorado";
   nuevo_horario: string | null;
 };
 
@@ -68,9 +68,7 @@ export default class VueloServiceImpl extends VueloService {
     return rows[0] ? this.toDto(rows[0]) : undefined;
   }
 
-  async create(
-    vuelo: CrearVueloDto,
-  ): Promise<RespuestaVueloDto | undefined> {
+  async create(vuelo: CrearVueloDto): Promise<RespuestaVueloDto | undefined> {
     const [result] = await db.execute<ResultSetHeader>(
       `INSERT INTO vuelos
        (id_aeropuerto_origen, id_aeropuerto_destino, fecha_salida,
@@ -101,20 +99,20 @@ export default class VueloServiceImpl extends VueloService {
     }
 
     const columnMap: Record<keyof ActualizarVueloDto, string> = {
-      idAeropuertoOrigen: 'id_aeropuerto_origen',
-      idAeropuertoDestino: 'id_aeropuerto_destino',
-      fechaSalida: 'fecha_salida',
-      fechaLlegada: 'fecha_llegada',
-      precio: 'precio',
-      estado: 'estado',
-      nuevoHorario: 'nuevo_horario',
+      idAeropuertoOrigen: "id_aeropuerto_origen",
+      idAeropuertoDestino: "id_aeropuerto_destino",
+      fechaSalida: "fecha_salida",
+      fechaLlegada: "fecha_llegada",
+      precio: "precio",
+      estado: "estado",
+      nuevoHorario: "nuevo_horario",
     };
     const values = fields.map(([, value]) => value);
     values.push(id);
     const [result] = await db.execute<ResultSetHeader>(
       `UPDATE vuelos SET ${fields
         .map(([field]) => `${columnMap[field]} = ?`)
-        .join(', ')}
+        .join(", ")}
        WHERE id_vuelo = ? AND estado <> 'cancelado'`,
       values,
     );
@@ -129,7 +127,7 @@ export default class VueloServiceImpl extends VueloService {
       return undefined;
     }
 
-    await db.execute('DELETE FROM vuelos WHERE id_vuelo = ?', [id]);
+    await db.execute("DELETE FROM vuelos WHERE id_vuelo = ?", [id]);
     return vuelo;
   }
 }

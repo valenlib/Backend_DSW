@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import VueloService from '../Services/Vuelo.Service';
+import { Request, Response } from "express";
+import VueloService from "../Services/Vuelo.Service.js";
 export default class VueloController {
     private readonly vueloService;
     constructor(vueloService: VueloService);

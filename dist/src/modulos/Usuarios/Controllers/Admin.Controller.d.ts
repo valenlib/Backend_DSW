@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import AdminService from '../Services/Admin.Service';
+import { Request, Response } from "express";
+import AdminService from "../Services/Admin.Service.js";
 export declare class AdminController {
     private readonly adminService;
     constructor(adminService: AdminService);

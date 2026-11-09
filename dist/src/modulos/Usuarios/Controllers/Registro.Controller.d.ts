@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import RegistroService from '../Services/Registro.service';
+import { Request, Response } from "express";
+import RegistroService from "../Services/Registro.service.js";
 export declare class RegistroController {
     private readonly registroService;
     constructor(registroService: RegistroService);

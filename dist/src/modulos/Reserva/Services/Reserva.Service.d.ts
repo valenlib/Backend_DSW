@@ -1,7 +1,7 @@
-import RespuestaReservaDto from '../dto/respuesta-reserva.dto';
-import CrearReservaDto from '../dto/crear-reserva.dto';
-import ActualizarReservaDto from '../dto/actualizar-reserva.dto';
-import { UserRole } from '../../../shared/JWT/AuthJWT';
+import RespuestaReservaDto from "../dto/respuesta-reserva.dto.js";
+import CrearReservaDto from "../dto/crear-reserva.dto.js";
+import ActualizarReservaDto from "../dto/actualizar-reserva.dto.js";
+import { UserRole } from "../../../shared/JWT/AuthJWT.js";
 export default abstract class ReservaService {
     abstract findAll(userId: number, role: UserRole): Promise<RespuestaReservaDto[]>;
     abstract findById(id: number, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;

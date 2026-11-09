@@ -1,5 +1,4 @@
-class Usuario 
-{
+class Usuario {
   private id: number;
   private nombre: string;
   private email: string;
@@ -8,14 +7,14 @@ class Usuario
   /*static MetodoDeClase() {
     console.log("Este es un método de clase");
   }*/
-  
-  constructor (
+
+  constructor(
     id: number,
     nombre: string,
     apellido: string,
     email: string,
-    password?: string
-  ){
+    password?: string,
+  ) {
     this.id = id;
     this.nombre = nombre;
     this.email = email;

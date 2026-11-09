@@ -1,7 +1,5 @@
 class DeleteVueloDto {
-    constructor(
-        id: number
-    ) {}
+  constructor(id: number) {}
 }
 
 export default DeleteVueloDto;

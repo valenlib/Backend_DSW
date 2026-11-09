@@ -1,7 +1,7 @@
-import AeropuertoService from '../Services/Aeropuerto.Service';
-import CrearAeropuertoDto from '../dto/crear-aeropuerto.dto';
-import ActualizarAeropuertoDto from '../dto/actualizar-aeropuerto.dto';
-import RespuestaAeropuertoDto from '../dto/respuesta-aeropuerto.dto';
+import AeropuertoService from "../Services/Aeropuerto.Service.js";
+import CrearAeropuertoDto from "../dto/crear-aeropuerto.dto.js";
+import ActualizarAeropuertoDto from "../dto/actualizar-aeropuerto.dto.js";
+import RespuestaAeropuertoDto from "../dto/respuesta-aeropuerto.dto.js";
 export default class AeropuertoServiceImpl extends AeropuertoService {
     private toDto;
     findAll(): Promise<RespuestaAeropuertoDto[]>;

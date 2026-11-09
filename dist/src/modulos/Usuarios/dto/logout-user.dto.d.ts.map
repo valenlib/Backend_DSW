@@ -1,1 +1,1 @@
-{"version":3,"file":"logout-user.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/logout-user.dto.ts"],"names":[],"mappings":"AAAA,cAAM,aAAa;IACR,YAAY,CAAC,EAAE,MAAM,CAAC;gBAGzB,YAAY,CAAC,EAAE,MAAM;CAI5B;AACD,eAAe,aAAa,CAAC"}
+{"version":3,"file":"logout-user.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/logout-user.dto.ts"],"names":[],"mappings":"AAAA,cAAM,aAAa;IACV,YAAY,CAAC,EAAE,MAAM,CAAC;gBAEjB,YAAY,CAAC,EAAE,MAAM;CAGlC;AACD,eAAe,aAAa,CAAC"}

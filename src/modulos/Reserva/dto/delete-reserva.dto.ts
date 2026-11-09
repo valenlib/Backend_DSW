@@ -1,7 +1,5 @@
 class DeleteReservaDto {
-    constructor(
-        id: number
-    ) {}
+  constructor(id: number) {}
 }
 
 export default DeleteReservaDto;

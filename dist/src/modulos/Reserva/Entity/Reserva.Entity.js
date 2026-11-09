@@ -1,5 +1,5 @@
 class Reserva {
-    constructor(id, idVuelo, idUsuario, fechaReserva, estado = 'pendiente', cantidadPasajes = 1, activa = true) {
+    constructor(id, idVuelo, idUsuario, fechaReserva, estado = "pendiente", cantidadPasajes = 1, activa = true) {
         this._id = id;
         this._idVuelo = idVuelo;
         this._idUsuario = idUsuario;

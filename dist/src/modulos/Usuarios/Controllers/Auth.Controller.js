@@ -5,7 +5,7 @@ export class AuthController {
     async login(req, res) {
         const response = await this.authService.login(req.body);
         if (!response) {
-            res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+            res.status(401).json({ mensaje: "Credenciales incorrectas" });
             return;
         }
         res.json(response);
@@ -17,7 +17,7 @@ export class AuthController {
     async refresh(req, res) {
         const response = await this.authService.refresh(req.body.refreshToken);
         if (!response) {
-            res.status(401).json({ message: 'El refresh token no es válido' });
+            res.status(401).json({ message: "El refresh token no es válido" });
             return;
         }
         res.json(response);

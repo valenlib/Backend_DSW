@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt';
-import type { ResultSetHeader } from 'mysql2';
-import db from '../../../shared/conn.mysql';
-import RegistroService from '../Services/Registro.service';
-import RespuestaRegistroDto from '../dto/respuesta-registro.dto';
-import CrearUsuarioDto from '../dto/crear-usuario.dto';
+import bcrypt from "bcrypt";
+import type { ResultSetHeader } from "mysql2";
+import db from "../../../shared/conn.mysql.js";
+import RegistroService from "../Services/Registro.service.js";
+import RespuestaRegistroDto from "../dto/respuesta-registro.dto.js";
+import CrearUsuarioDto from "../dto/crear-usuario.dto.js";
 
 export class RegistroServiceImpl extends RegistroService {
   async registrarUsuario(

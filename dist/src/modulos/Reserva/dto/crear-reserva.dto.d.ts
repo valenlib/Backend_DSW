@@ -1,5 +1,8 @@
 declare class CrearReservaDto {
-    constructor(idVuelo: number, nombrePasajero: string, emailPasajero: string, cantidadPasajes: number);
+    idVuelo: number;
+    idUsuario: number;
+    cantidadPasajes: number;
+    constructor(idVuelo: number, idUsuario: number, cantidadPasajes: number);
 }
 export default CrearReservaDto;
 //# sourceMappingURL=crear-reserva.dto.d.ts.map

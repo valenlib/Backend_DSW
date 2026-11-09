@@ -99,8 +99,8 @@ SELECT
   'en hora'
 FROM aeropuertos origen
 JOIN aeropuertos destino
-  ON destino.nombre = 'Aeropuerto Internacional de Cordoba'
-WHERE origen.nombre = 'Aeropuerto Ezeiza'
+  ON destino.ciudad = 'Cordoba'
+WHERE origen.ciudad = 'Buenos Aires'
   AND NOT EXISTS (
     SELECT 1 FROM vuelos
     WHERE fecha_salida = '2027-01-15 08:00:00'
@@ -120,8 +120,8 @@ SELECT
   'demorado'
 FROM aeropuertos origen
 JOIN aeropuertos destino
-  ON destino.nombre = 'Aeropuerto Ezeiza'
-WHERE origen.nombre = 'Aeropuerto Internacional de Cordoba'
+  ON destino.ciudad = 'Buenos Aires'
+WHERE origen.ciudad = 'Cordoba'
   AND NOT EXISTS (
     SELECT 1 FROM vuelos
     WHERE fecha_salida = '2027-01-20 14:30:00'

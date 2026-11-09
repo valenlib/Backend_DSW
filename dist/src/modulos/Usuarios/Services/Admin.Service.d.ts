@@ -1,4 +1,4 @@
-import RespuestaAdminDto from '../dto/respuesta-admin.dto';
+import RespuestaAdminDto from "../dto/respuesta-admin.dto.js";
 export type UsuarioUpdate = {
     nombre?: string;
     apellido?: string;

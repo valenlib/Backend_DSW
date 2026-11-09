@@ -1,27 +1,27 @@
-import type Pasaje from "./Pasaje.Entity";
-import type Usuario from "../../Usuarios/Entity/Usuario.entity";
+export type EstadoReserva = "pendiente" | "confirmada" | "cancelada";
 declare class Reserva {
     private _id;
-    private _pasaje;
-    private _pasajero;
-    constructor(id: number, pasaje: Pasaje, pasajero: Usuario);
+    private _idVuelo;
+    private _idUsuario;
+    private _fechaReserva;
+    private _estado;
+    private _cantidadPasajes;
+    private _activa;
+    constructor(id: number, idVuelo: number, idUsuario: number, fechaReserva: string, estado?: EstadoReserva, cantidadPasajes?: number, activa?: boolean);
     get id(): number;
-    get pasaje(): Pasaje;
-    get pasajero(): Usuario;
-    get vuelo(): string;
-    get cantPasajes(): number;
-    get precio(): number;
-    get fecha(): string;
-    get hora(): string;
+    get idVuelo(): number;
+    get idUsuario(): number;
+    get fechaReserva(): string;
+    get estado(): EstadoReserva;
+    get cantidadPasajes(): number;
+    get activa(): boolean;
     set id(id: number);
-    set pasaje(pasaje: Pasaje);
-    set pasajero(pasajero: Usuario);
-    set vuelo(vuelo: string);
-    set cantPasajes(cantPasajes: number);
-    set fecha(fecha: string);
-    set hora(hora: string);
-    get precioTotal(): number;
-    calcularPrecioTotal(): number;
+    set idVuelo(idVuelo: number);
+    set idUsuario(idUsuario: number);
+    set fechaReserva(fechaReserva: string);
+    set estado(estado: EstadoReserva);
+    set cantidadPasajes(cantidadPasajes: number);
+    set activa(activa: boolean);
 }
 export default Reserva;
 //# sourceMappingURL=Reserva.Entity.d.ts.map

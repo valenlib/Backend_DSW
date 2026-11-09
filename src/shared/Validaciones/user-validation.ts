@@ -1,20 +1,25 @@
-import type { NextFunction, Request, Response } from 'express';
-import type { RowDataPacket } from 'mysql2';
-import db from '../conn.mysql';
-import { HttpError } from '../error-handler';
+import type { NextFunction, Request, Response } from "express";
+import type { RowDataPacket } from "mysql2";
+import db from "../conn.mysql.js";
+import { HttpError } from "../error-handler.js";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordMinimumLength = 8;
-const allowedCreateFields = new Set(['nombre', 'apellido', 'email', 'password']);
-const allowedUpdateFields = new Set(['nombre', 'apellido', 'email']);
+const allowedCreateFields = new Set([
+  "nombre",
+  "apellido",
+  "email",
+  "password",
+]);
+const allowedUpdateFields = new Set(["nombre", "apellido", "email"]);
 
 function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0;
+  return typeof value === "string" && value.trim().length > 0;
 }
 
 function validateEmail(email: string): void {
   if (!emailPattern.test(email)) {
-    throw new HttpError('El email no tiene un formato válido', 400);
+    throw new HttpError("El email no tiene un formato válido", 400);
   }
 }
 
@@ -25,22 +30,35 @@ function validatePassword(password: string, requireComplexity = true): void {
       400,
     );
   }
-  if (requireComplexity && (!/[a-z]/.test(password) || !/[A-Z]/.test(password) ||
-      !/\d/.test(password) || !/[^A-Za-z\d]/.test(password))) {
+  if (
+    requireComplexity &&
+    (!/[a-z]/.test(password) ||
+      !/[A-Z]/.test(password) ||
+      !/\d/.test(password) ||
+      !/[^A-Za-z\d]/.test(password))
+  ) {
     throw new HttpError(
-      'La contraseña debe incluir minúsculas, mayúsculas, números y símbolos',
+      "La contraseña debe incluir minúsculas, mayúsculas, números y símbolos",
       400,
     );
   }
 }
 
-function validateAllowedFields(body: unknown, allowedFields: Set<string>): void {
-  if (body === null || typeof body !== 'object' || Array.isArray(body)) {
-    throw new HttpError('El body debe ser un objeto', 400);
+function validateAllowedFields(
+  body: unknown,
+  allowedFields: Set<string>,
+): void {
+  if (body === null || typeof body !== "object" || Array.isArray(body)) {
+    throw new HttpError("El body debe ser un objeto", 400);
   }
-  const extraFields = Object.keys(body).filter((field) => !allowedFields.has(field));
+  const extraFields = Object.keys(body).filter(
+    (field) => !allowedFields.has(field),
+  );
   if (extraFields.length > 0) {
-    throw new HttpError(`Propiedades no permitidas: ${extraFields.join(', ')}`, 400);
+    throw new HttpError(
+      `Propiedades no permitidas: ${extraFields.join(", ")}`,
+      400,
+    );
   }
 }
 
@@ -60,7 +78,7 @@ export async function validateCreateUser(
       !isNonEmptyString(password)
     ) {
       throw new HttpError(
-        'nombre, apellido, email y password son obligatorios',
+        "nombre, apellido, email y password son obligatorios",
         400,
       );
     }
@@ -70,11 +88,11 @@ export async function validateCreateUser(
     validatePassword(password, false);
 
     const [rows] = await db.query<RowDataPacket[]>(
-      'SELECT id_usuario FROM usuarios WHERE email = ? AND activo = TRUE LIMIT 1',
+      "SELECT id_usuario FROM usuarios WHERE email = ? AND activo = TRUE LIMIT 1",
       [normalizedEmail],
     );
     if (rows.length > 0) {
-      throw new HttpError('El email ya está registrado', 409);
+      throw new HttpError("El email ya está registrado", 409);
     }
 
     req.body = {
@@ -95,10 +113,10 @@ export function validateLogin(
   next: NextFunction,
 ): void {
   try {
-    validateAllowedFields(req.body, new Set(['email', 'password']));
+    validateAllowedFields(req.body, new Set(["email", "password"]));
     const { email, password } = req.body ?? {};
     if (!isNonEmptyString(email) || !isNonEmptyString(password)) {
-      throw new HttpError('email y password son obligatorios', 400);
+      throw new HttpError("email y password son obligatorios", 400);
     }
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -123,30 +141,30 @@ export async function validateUserUpdate(
     const fields = { nombre, apellido, email };
 
     if (!Object.values(fields).some((value) => value !== undefined)) {
-      throw new HttpError('Debe enviar al menos un campo para actualizar', 400);
+      throw new HttpError("Debe enviar al menos un campo para actualizar", 400);
     }
 
     if (nombre !== undefined && !isNonEmptyString(nombre)) {
-      throw new HttpError('El nombre no puede estar vacío', 400);
+      throw new HttpError("El nombre no puede estar vacío", 400);
     }
     if (apellido !== undefined && !isNonEmptyString(apellido)) {
-      throw new HttpError('El apellido no puede estar vacío', 400);
+      throw new HttpError("El apellido no puede estar vacío", 400);
     }
 
     let normalizedEmail: string | undefined;
     if (email !== undefined) {
       if (!isNonEmptyString(email)) {
-        throw new HttpError('El email no puede estar vacío', 400);
+        throw new HttpError("El email no puede estar vacío", 400);
       }
       normalizedEmail = email.trim().toLowerCase();
       validateEmail(normalizedEmail);
 
       const [rows] = await db.query<RowDataPacket[]>(
-        'SELECT id_usuario FROM usuarios WHERE email = ? AND id_usuario <> ? AND activo = TRUE LIMIT 1',
+        "SELECT id_usuario FROM usuarios WHERE email = ? AND id_usuario <> ? AND activo = TRUE LIMIT 1",
         [normalizedEmail, req.params.id],
       );
       if (rows.length > 0) {
-        throw new HttpError('El email ya está registrado', 409);
+        throw new HttpError("El email ya está registrado", 409);
       }
     }
 
@@ -168,7 +186,7 @@ export function validateId(
 ): void {
   const id = Number(req.params.id);
   if (!Number.isInteger(id) || id <= 0) {
-    throw new HttpError('El ID debe ser un número entero positivo', 400);
+    throw new HttpError("El ID debe ser un número entero positivo", 400);
   }
 
   if (next) {
@@ -182,7 +200,7 @@ export function validateSearchCriteria(
   next: NextFunction,
 ): void {
   if (!isNonEmptyString(req.params.criterio)) {
-    next(new HttpError('El criterio de búsqueda es obligatorio', 400));
+    next(new HttpError("El criterio de búsqueda es obligatorio", 400));
     return;
   }
   req.params.criterio = req.params.criterio.trim();

@@ -1,13 +1,13 @@
-import AdminService from '../Services/Admin.Service';
-import RespuestaAdminDto from '../dto/respuesta-admin.dto';
-import db from '../../../shared/conn.mysql';
+import AdminService from "../Services/Admin.Service.js";
+import RespuestaAdminDto from "../dto/respuesta-admin.dto.js";
+import db from "../../../shared/conn.mysql.js";
 export class AdminServiceImpl extends AdminService {
     async findAll() {
-        const [rows] = await db.query('SELECT id_usuario, nombre, apellido, email FROM usuarios WHERE activo = TRUE ORDER BY id_usuario');
+        const [rows] = await db.query("SELECT id_usuario, nombre, apellido, email FROM usuarios WHERE activo = TRUE ORDER BY id_usuario");
         return rows.map((row) => new RespuestaAdminDto(row.id_usuario, `${row.nombre} ${row.apellido}`, row.email));
     }
     async findById(id) {
-        const [rows] = await db.query('SELECT id_usuario, nombre, apellido, email FROM usuarios WHERE id_usuario = ? AND activo = TRUE', [id]);
+        const [rows] = await db.query("SELECT id_usuario, nombre, apellido, email FROM usuarios WHERE id_usuario = ? AND activo = TRUE", [id]);
         const row = rows[0];
         return row
             ? new RespuestaAdminDto(row.id_usuario, `${row.nombre} ${row.apellido}`, row.email)
@@ -15,11 +15,7 @@ export class AdminServiceImpl extends AdminService {
     }
     async findByCriterio(criterio) {
         const criterioBusqueda = `%${criterio}%`;
-        const [rows] = await db.query(`SELECT id_usuario, nombre, apellido, email
-       FROM usuarios
-       WHERE activo = TRUE
-         AND (nombre LIKE ? OR apellido LIKE ? OR email LIKE ?)
-       ORDER BY id_usuario`, [criterioBusqueda, criterioBusqueda, criterioBusqueda]);
+        const [rows] = await db.query(`SELECT id_usuario, nombre, apellido, email        FROM usuarios        WHERE activo = TRUE          AND (nombre LIKE ? OR apellido LIKE ? OR email LIKE ?)        ORDER BY id_usuario`, [criterioBusqueda, criterioBusqueda, criterioBusqueda]);
         return rows.map((row) => new RespuestaAdminDto(row.id_usuario, `${row.nombre} ${row.apellido}`, row.email));
     }
     async update(id, usuario) {
@@ -29,9 +25,7 @@ export class AdminServiceImpl extends AdminService {
         }
         const values = fields.map(([, value]) => value);
         values.push(id);
-        const [result] = await db.execute(`UPDATE usuarios SET ${fields
-            .map(([field]) => `${field} = ?`)
-            .join(', ')} WHERE id_usuario = ? AND activo = TRUE`, values);
+        const [result] = await db.execute(`UPDATE usuarios SET ${fields.map(([field]) => `${field} = ?`).join(", ")} WHERE id_usuario = ? AND activo = TRUE`, values);
         if (!result.affectedRows) {
             return undefined;
         }
@@ -42,7 +36,7 @@ export class AdminServiceImpl extends AdminService {
         if (!usuario) {
             return undefined;
         }
-        await db.execute('UPDATE usuarios SET activo = FALSE WHERE id_usuario = ? AND activo = TRUE', [id]);
+        await db.execute("UPDATE usuarios SET activo = FALSE WHERE id_usuario = ? AND activo = TRUE", [id]);
         return usuario;
     }
     async delete(id) {
@@ -50,7 +44,7 @@ export class AdminServiceImpl extends AdminService {
         if (!usuario) {
             return undefined;
         }
-        await db.execute('DELETE FROM usuarios WHERE id_usuario = ?', [id]);
+        await db.execute("DELETE FROM usuarios WHERE id_usuario = ?", [id]);
         return usuario;
     }
 }

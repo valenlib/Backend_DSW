@@ -1,7 +1,7 @@
-import ActualizarPerfilDto from '../dto/actualizar-perfil.dto';
-import DeletePerfilDto from '../dto/delete-perfil.dto';
-import LogicalDeletePerfilDto from '../dto/logical-delete-perfil.dto';
-import RespuestaPerfilDto from '../dto/respuesta-perfil.dto';
+import ActualizarPerfilDto from "../dto/actualizar-perfil.dto.js";
+import DeletePerfilDto from "../dto/delete-perfil.dto.js";
+import LogicalDeletePerfilDto from "../dto/logical-delete-perfil.dto.js";
+import RespuestaPerfilDto from "../dto/respuesta-perfil.dto.js";
 export declare abstract class PerfilService {
     abstract actualizarPerfil(perfilRequest: ActualizarPerfilDto): Promise<RespuestaPerfilDto | undefined>;
     abstract logicalDelete(perfilRequest: LogicalDeletePerfilDto): Promise<RespuestaPerfilDto | undefined>;
