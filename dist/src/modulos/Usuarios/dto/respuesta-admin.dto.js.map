@@ -1,0 +1,1 @@
+{"version":3,"file":"respuesta-admin.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Usuarios/dto/respuesta-admin.dto.ts"],"names":[],"mappings":"AAAA,MAAM,iBAAiB;IAKnB,YACI,EAAU,EACV,MAAc,EACd,KAAa;QAEb,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;QACb,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACvB,CAAC;CACJ;AACD,eAAe,iBAAiB,CAAC"}

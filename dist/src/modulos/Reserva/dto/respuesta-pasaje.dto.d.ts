@@ -1,0 +1,5 @@
+declare class RespuestaPasajeDto {
+    constructor(id: number, precio: number, fecha: string, hora: string, origen: string, destino: string);
+}
+export default RespuestaPasajeDto;
+//# sourceMappingURL=respuesta-pasaje.dto.d.ts.map

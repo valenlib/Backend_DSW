@@ -1,0 +1,1 @@
+{"version":3,"file":"crear-asiento-tipo.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/crear-asiento-tipo.dto.ts"],"names":[],"mappings":"AAAA,cAAM,mBAAmB;IACd,MAAM,EAAE,MAAM,CAAC;IACf,WAAW,EAAE,MAAM,CAAC;IACpB,WAAW,EAAE,MAAM,CAAC;gBAGvB,MAAM,EAAE,MAAM,EACd,WAAW,EAAE,MAAM,EACnB,WAAW,EAAE,MAAM;CAM1B;AAED,eAAe,mBAAmB,CAAC"}

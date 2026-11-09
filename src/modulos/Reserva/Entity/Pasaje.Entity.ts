@@ -1,25 +1,23 @@
-import type Vuelo from './Vuelo.Entity';
 
 class Pasaje {
     private _id: number;
-    private _vuelo: Vuelo;
     private _precio: number;
     private _fecha: string;
     private _hora: string;
-    constructor(id: number, vuelo: Vuelo, precio: number, fecha: string, hora: string) {
+    private _origen: string;
+    private _destino: string;   
+    constructor(id: number, precio: number, fecha: string, hora: string, origen: string, destino: string) {
         this._id = id;
-        this._vuelo = vuelo;
         this._precio = precio;
         this._fecha = fecha;
         this._hora = hora;
+        this._origen = origen;
+        this._destino = destino;
     }
 
     // Getters
     get id() {
         return this._id;
-    }
-    get vuelo() {
-        return this._vuelo;
     }
     get precio() {
         return this._precio;
@@ -30,12 +28,16 @@ class Pasaje {
     get hora() {
         return this._hora;
     }
+    get origen() {
+        return this._origen;
+    }
+    get destino() {
+        return this._destino;
+    }
+
     // Setters
     set id(id: number) {
         this._id = id;
-    }
-    set vuelo(vuelo: Vuelo) {
-        this._vuelo = vuelo;
     }
     set precio(precio: number) {
         this._precio = precio;
@@ -46,7 +48,14 @@ class Pasaje {
     set hora(hora: string) {
         this._hora = hora;
     }
+    set origen(origen: string) {
+        this._origen = origen;
+    }
+    set destino(destino: string) {
+        this._destino = destino;
+    }
 }
 
 
 export default Pasaje;
+

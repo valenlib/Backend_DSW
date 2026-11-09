@@ -1,0 +1,1 @@
+{"version":3,"file":"respuesta-asiento-tipo.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Aviones/dto/respuesta-asiento-tipo.dto.ts"],"names":[],"mappings":"AAAA,MAAM,uBAAuB;IAKzB,YACI,MAAc,EACd,WAAmB,EACnB,WAAmB;QAEnB,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;QAC/B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;CACJ;AAED,eAAe,uBAAuB,CAAC"}

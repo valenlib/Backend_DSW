@@ -8,6 +8,12 @@ export class AuthController {
 
   async login(req: Request, res: Response): Promise<void> {
     const response = await this.authService.login(req.body as LoginUserDto);
+
+    if (!response) {
+      res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+      return;
+    }
+
     res.json(response);
   }
 

@@ -1,0 +1,1 @@
+{"version":3,"file":"actualizar-vuelo.dto.d.ts","sourceRoot":"","sources":["../../../../../src/modulos/Vuelos/dto/actualizar-vuelo.dto.ts"],"names":[],"mappings":"AAAA,cAAM,kBAAkB;gBAEhB,EAAE,EAAE,MAAM,EACV,KAAK,CAAC,EAAE,MAAM,EACd,MAAM,CAAC,EAAE,MAAM,EACf,OAAO,CAAC,EAAE,MAAM,EAChB,KAAK,CAAC,EAAE,MAAM,EACd,IAAI,CAAC,EAAE,MAAM,EACb,MAAM,CAAC,EAAE,MAAM;CAEtB;AAED,eAAe,kBAAkB,CAAC"}
