@@ -5,7 +5,7 @@ class ActualizarVueloDto {
         public fechaSalida?: string,
         public fechaLlegada?: string,
         public precio?: number,
-        public estado?: 'en hora' | 'atrasado' | 'demorado',
+        public estado?: 'en hora' | 'cancelado' | 'demorado',
         public nuevoHorario?: string,
     ) {}
 }

@@ -1,4 +1,4 @@
-export type EstadoVuelo = 'en hora' | 'atrasado' | 'demorado';
+export type EstadoVuelo = 'en hora' | 'cancelado' | 'demorado';
 
 class Vuelo {
   private _id: number;

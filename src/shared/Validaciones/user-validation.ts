@@ -5,6 +5,8 @@ import { HttpError } from '../error-handler';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordMinimumLength = 8;
+const allowedCreateFields = new Set(['nombre', 'apellido', 'email', 'password']);
+const allowedUpdateFields = new Set(['nombre', 'apellido', 'email']);
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
@@ -16,12 +18,29 @@ function validateEmail(email: string): void {
   }
 }
 
-function validatePassword(password: string): void {
+function validatePassword(password: string, requireComplexity = true): void {
   if (password.length < passwordMinimumLength) {
     throw new HttpError(
       `La contraseña debe tener al menos ${passwordMinimumLength} caracteres`,
       400,
     );
+  }
+  if (requireComplexity && (!/[a-z]/.test(password) || !/[A-Z]/.test(password) ||
+      !/\d/.test(password) || !/[^A-Za-z\d]/.test(password))) {
+    throw new HttpError(
+      'La contraseña debe incluir minúsculas, mayúsculas, números y símbolos',
+      400,
+    );
+  }
+}
+
+function validateAllowedFields(body: unknown, allowedFields: Set<string>): void {
+  if (body === null || typeof body !== 'object' || Array.isArray(body)) {
+    throw new HttpError('El body debe ser un objeto', 400);
+  }
+  const extraFields = Object.keys(body).filter((field) => !allowedFields.has(field));
+  if (extraFields.length > 0) {
+    throw new HttpError(`Propiedades no permitidas: ${extraFields.join(', ')}`, 400);
   }
 }
 
@@ -31,6 +50,7 @@ export async function validateCreateUser(
   next: NextFunction,
 ): Promise<void> {
   try {
+    validateAllowedFields(req.body, allowedCreateFields);
     const { nombre, apellido, email, password } = req.body ?? {};
 
     if (
@@ -47,7 +67,7 @@ export async function validateCreateUser(
 
     const normalizedEmail = email.trim().toLowerCase();
     validateEmail(normalizedEmail);
-    validatePassword(password);
+    validatePassword(password, false);
 
     const [rows] = await db.query<RowDataPacket[]>(
       'SELECT id_usuario FROM usuarios WHERE email = ? AND activo = TRUE LIMIT 1',
@@ -75,6 +95,7 @@ export function validateLogin(
   next: NextFunction,
 ): void {
   try {
+    validateAllowedFields(req.body, new Set(['email', 'password']));
     const { email, password } = req.body ?? {};
     if (!isNonEmptyString(email) || !isNonEmptyString(password)) {
       throw new HttpError('email y password son obligatorios', 400);
@@ -97,6 +118,7 @@ export async function validateUserUpdate(
 ): Promise<void> {
   try {
     validateId(req);
+    validateAllowedFields(req.body, allowedUpdateFields);
     const { nombre, apellido, email } = req.body ?? {};
     const fields = { nombre, apellido, email };
 
