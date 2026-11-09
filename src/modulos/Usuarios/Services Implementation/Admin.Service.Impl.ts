@@ -1,6 +1,5 @@
-import AdminService from '../Services/Admin.Service';
+import AdminService, { UsuarioUpdate } from '../Services/Admin.Service';
 import RespuestaAdminDto from '../dto/respuesta-admin.dto';
-import Usuario from '../Entity/Usuario.entity';
 import db from '../../../shared/conn.mysql';
 import type { ResultSetHeader, RowDataPacket } from 'mysql2';
 
@@ -60,18 +59,22 @@ export class AdminServiceImpl extends AdminService {
 
   async update(
     id: number,
-    usuario: Usuario,
+    usuario: UsuarioUpdate,
   ): Promise<RespuestaAdminDto | undefined> {
+    const fields = Object.entries(usuario).filter(
+      ([, value]) => value !== undefined,
+    ) as [keyof UsuarioUpdate, string][];
+    if (fields.length === 0) {
+      return this.findById(id);
+    }
+
+    const values: (string | number)[] = fields.map(([, value]) => value);
+    values.push(id);
     const [result] = await db.execute<ResultSetHeader>(
-      `UPDATE usuarios
-       SET nombre = ?, apellido = ?, email = ?
-       WHERE id_usuario = ?`,
-      [
-        usuario.getNombre().trim(),
-        usuario.getApellido().trim(),
-        usuario.getEmail().trim().toLowerCase(),
-        id,
-      ],
+      `UPDATE usuarios SET ${fields
+        .map(([field]) => `${field} = ?`)
+        .join(', ')} WHERE id_usuario = ?`,
+      values,
     );
 
     if (!result.affectedRows) {

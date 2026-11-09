@@ -1,6 +1,6 @@
 import RegistroService from '../Services/Registro.service';
 import RespuestaRegistroDto from '../dto/respuesta-registro.dto';
-import Usuario from '../Entity/Usuario.entity';
+import CrearUsuarioDto from '../dto/crear-usuario.dto';
 
 export class RegistroServiceImpl extends RegistroService {
   async registrarUsuario(

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import AdminService from '../Services/Admin.Service';
-import Usuario from '../Entity/Usuario.entity';
 
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
@@ -28,15 +27,9 @@ export class AdminController {
   }
 
   async update(req: Request, res: Response): Promise<void> {
-    const usuario = new Usuario(
-      Number(req.params.id),
-      req.body.nombre,
-      req.body.apellido,
-      req.body.email,
-    );
     const response = await this.adminService.update(
       Number(req.params.id),
-      usuario,
+      req.body,
     );
     if (!response) {
       res.status(404).json({ message: 'Usuario no encontrado' });

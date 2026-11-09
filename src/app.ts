@@ -11,6 +11,13 @@ import AuthServiceImpl from './modulos/Usuarios/Services Implementation/Auth.Ser
 import { RegistroController } from './modulos/Usuarios/Controllers/Registro.Controller';
 import RegistroServiceImpl from './modulos/Usuarios/Services Implementation/Registro.service.Impl';
 import errorHandler from './shared/error-handler';
+import {
+  validateCreateUser,
+  validateId,
+  validateLogin,
+  validateSearchCriteria,
+  validateUserUpdate,
+} from './shared/Validaciones/user-validation';
 
 const app = express();
 //post -> crear un recurso
@@ -22,31 +29,17 @@ const app = express();
 //get /api/v1/users -> obtener lista de usuarios
 //get /api/v1/users/1 -> obtener info del usuario con id 1
 //get /api/v1/users/:id -> obtener info del usuario con id especificado
-//middleware para parsear el body de las peticiones (ver donde mandarlo)
-function sanitizeInput(req: Request, res: Response, next: NextFunction) {
-  req.body.sanitizedInput ={ 
-    name: req.body.name.trim(),
-    surname: req.body.surname.trim(),
-    email: req.body.email.trim().toLowerCase()
-
-  };
-  // mas validaciones y sanitizaciones
-  next();
-}
-
-
-
 app.use(express.json());
 
 const adminController = new AdminController(new AdminServiceImpl());
 const authController = new AuthController(new AuthServiceImpl());
 const registroController = new RegistroController(new RegistroServiceImpl());
 
-app.post('/api/v1/Usuario', (req: Request, res: Response) =>
+app.post('/api/v1/Usuario', validateCreateUser, (req: Request, res: Response) =>
   registroController.registrarUsuario(req, res),
 );
 
-app.post('/api/v1/Usuario/Login', (req: Request, res: Response) =>
+app.post('/api/v1/Usuario/Login', validateLogin, (req: Request, res: Response) =>
   authController.login(req, res),
 );
 
@@ -54,19 +47,23 @@ app.get('/api/v1/Usuario', (req: Request, res: Response) =>
   adminController.findAll(req, res),
 );
 
-app.get('/api/v1/Usuario/search/:criterio', (req: Request, res: Response) =>
+app.get('/api/v1/Usuario/search/:criterio', validateSearchCriteria, (req: Request, res: Response) =>
   adminController.findByCriterio(req, res),
 );
 
-app.get('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+app.get('/api/v1/Usuario/:id', validateId, (req: Request, res: Response) =>
   adminController.findById(req, res),
 );
 
-app.put('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+app.patch('/api/v1/Usuario/:id', validateUserUpdate, (req: Request, res: Response) =>
   adminController.update(req, res),
 );
 
-app.delete('/api/v1/Usuario/:id', (req: Request, res: Response) =>
+app.put('/api/v1/Usuario/:id', validateUserUpdate, (req: Request, res: Response) =>
+  adminController.update(req, res),
+);
+
+app.delete('/api/v1/Usuario/:id', validateId, (req: Request, res: Response) =>
   adminController.delete(req, res),
 );
 

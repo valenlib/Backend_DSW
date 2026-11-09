@@ -1,5 +1,10 @@
 import RespuestaAdminDto from '../dto/respuesta-admin.dto';
-import Usuario from '../Entity/Usuario.entity';
+
+export type UsuarioUpdate = {
+  nombre?: string;
+  apellido?: string;
+  email?: string;
+};
 
 export abstract class AdminService {
   abstract findAll(): Promise<RespuestaAdminDto[]>;
@@ -12,7 +17,7 @@ export abstract class AdminService {
 
   abstract update(
     id: number,
-    usuario: Usuario,
+    usuario: UsuarioUpdate,
   ): Promise<RespuestaAdminDto | undefined>;
 
   abstract delete(id: number): Promise<RespuestaAdminDto | undefined>;
