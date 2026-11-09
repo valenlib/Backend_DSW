@@ -23,6 +23,17 @@ export default class ReservaController {
     res.status(200).json(response);
   }
 
+  async findByEmail(req: Request, res: Response): Promise<void> {
+    const response = await this.reservaService.findByEmail(
+      String(req.params.email),
+    );
+    if (!response) {
+      res.status(404).json({ message: 'Reserva no encontrada' });
+      return;
+    }
+    res.status(200).json(response);
+  }
+
   async create(req: Request, res: Response): Promise<void> {
     res.status(201).json(
       await this.reservaService.create(req.body, req.auth!.id, req.auth!.rol),

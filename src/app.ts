@@ -100,6 +100,10 @@ app.post('/api/v1/Reserva', authMiddleware, validateReservaBody, (req: Request, 
   reservaController.create(req, res),
 );
 
+app.get('/api/v1/Reserva/email/:email', authMiddleware, (req: Request, res: Response) =>
+  reservaController.findByEmail(req, res),
+);
+
 app.patch('/api/v1/Reserva/:id', authMiddleware, validateId, validateReservaUpdate, (req: Request, res: Response) =>
   reservaController.update(req, res),
 );

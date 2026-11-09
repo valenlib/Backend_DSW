@@ -62,6 +62,16 @@ export default class ReservaServiceImpl extends ReservaService {
     return rows[0] ? this.toDto(rows[0]) : undefined;
   }
 
+  async findByEmail(
+    email: string
+  ): Promise<RespuestaReservaDto[] | undefined> {
+    const [rows] = await db.query<ReservaRow[]>(
+      `${this.selectQuery} WHERE u.email = ? AND r.activa = TRUE`,
+      [email]
+    );
+    return rows.length > 0 ? rows.map((row) => this.toDto(row)) : undefined;
+  }
+
   async create(
     reserva: CrearReservaDto,
     userId: number,

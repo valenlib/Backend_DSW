@@ -13,6 +13,9 @@ export default abstract class ReservaService {
     userId: number,
     role: UserRole,
   ): Promise<RespuestaReservaDto | undefined>;
+  abstract findByEmail(
+    email: string
+  ): Promise<RespuestaReservaDto[] | undefined>;
   abstract create(
     reserva: CrearReservaDto,
     userId: number,
