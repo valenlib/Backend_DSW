@@ -1,4 +1,6 @@
-class vuelo {
+export type EstadoVuelo = 'en hora' | 'atrasado' | 'demorado';
+
+class Vuelo {
   private _id: number;
   private _avion: string;
   private _origen: string;
@@ -6,7 +8,22 @@ class vuelo {
   private _fecha: string;
   private _hora: string;
   private _precio: number;  
-  constructor (id: number, avion: string, origen: string, destino: string, fecha: string, hora: string, precio: number) {
+  private _estado: EstadoVuelo;
+  private _nuevoHorario: string;
+  private _activo: boolean;
+
+  constructor (
+    id: number,
+    avion: string,
+    origen: string,
+    destino: string,
+    fecha: string,
+    hora: string,
+    precio: number,
+    estado: EstadoVuelo = 'en hora',
+    nuevoHorario: string = '',
+    activo: boolean = true,
+  ) {
     this._id = id;
     this._avion = avion;
     this._origen = origen;
@@ -14,6 +31,9 @@ class vuelo {
     this._fecha = fecha;
     this._hora = hora;
     this._precio = precio;
+    this._estado = estado;
+    this._nuevoHorario = nuevoHorario;
+    this._activo = activo;
   }
   // Getters
   get id() {
@@ -36,6 +56,15 @@ class vuelo {
   }
   get precio() {
     return this._precio;
+  }
+  get estado() {
+    return this._estado;
+  }
+  get nuevoHorario() {
+    return this._nuevoHorario;
+  }
+  get activo() {
+    return this._activo;
   }
 
   // Setters
@@ -60,7 +89,16 @@ class vuelo {
   set precio(precio: number) {
     this._precio = precio;
   }
+  set estado(estado: EstadoVuelo) {
+    this._estado = estado;
+  }
+  set nuevoHorario(nuevoHorario: string) {
+    this._nuevoHorario = nuevoHorario;
+  }
+  set activo(activo: boolean) {
+    this._activo = activo;
+  }
 
 }
 
-export default vuelo;
+export default Vuelo;

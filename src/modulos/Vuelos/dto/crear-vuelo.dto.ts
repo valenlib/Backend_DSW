@@ -1,11 +1,10 @@
 class CrearVueloDto {
     constructor(
-        avion: string,
-        origen: string,
-        destino: string,
-        fecha: string,
-        hora: string,
-        precio: number
+        public idAeropuertoOrigen: number,
+        public idAeropuertoDestino: number,
+        public fechaSalida: string,
+        public fechaLlegada: string,
+        public precio: number,
     ) {}
 }
 

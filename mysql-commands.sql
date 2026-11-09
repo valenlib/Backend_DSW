@@ -42,6 +42,8 @@ create table IF NOT EXISTS vuelos(
   fecha_salida datetime not null,
   fecha_llegada datetime not null,
   precio decimal(10, 2) not null,
+  estado varchar(20) not null default 'en hora',
+  nuevo_horario datetime null,
   FOREIGN KEY (id_aeropuerto_origen) REFERENCES aeropuertos(id_aeropuerto),
   FOREIGN KEY (id_aeropuerto_destino) REFERENCES aeropuertos(id_aeropuerto)
 );
