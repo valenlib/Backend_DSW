@@ -192,7 +192,6 @@ app.delete(
 app.get(
   "/api/v1/Vuelo",
   authMiddleware,
-  requireRole("admin"),
   (req: Request, res: Response) => vueloController.findAll(req, res),
 );
 app.get(
