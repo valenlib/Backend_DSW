@@ -219,7 +219,6 @@ app.get(
 app.get(
   "/api/v1/Vuelo/:id",
   authMiddleware,
-  requireRole("admin"),
   validateId,
   (req: Request, res: Response) => vueloController.findById(req, res),
 );

@@ -56,7 +56,7 @@ app.patch("/api/v1/Aeropuerto/:id", authMiddleware, requireRole("admin"), valida
 app.patch("/api/v1/Aeropuerto/:id/logical-delete", authMiddleware, requireRole("admin"), validateId, (req, res) => aeropuertoController.logicalDelete(req, res));
 app.delete("/api/v1/Aeropuerto/:id", authMiddleware, requireRole("admin"), validateId, (req, res) => aeropuertoController.delete(req, res));
 app.get("/api/v1/Vuelo", authMiddleware, (req, res) => vueloController.findAll(req, res));
-app.get("/api/v1/Vuelo/:id", authMiddleware, requireRole("admin"), validateId, (req, res) => vueloController.findById(req, res));
+app.get("/api/v1/Vuelo/:id", authMiddleware, validateId, (req, res) => vueloController.findById(req, res));
 app.post("/api/v1/Vuelo", authMiddleware, requireRole("admin"), validateVueloCreate, (req, res) => vueloController.create(req, res));
 app.patch("/api/v1/Vuelo/:id", authMiddleware, requireRole("admin"), validateId, validateVueloUpdate, (req, res) => vueloController.update(req, res));
 app.delete("/api/v1/Vuelo/:id", authMiddleware, requireRole("admin"), validateId, (req, res) => vueloController.delete(req, res));
