@@ -92,7 +92,7 @@ app.get(
 app.patch(
   "/api/v1/Usuario/:id",
   authMiddleware,
-  requireSelfOrRole("admin"),
+  requireRole("admin"),
   validateUserUpdate,
   (req: Request, res: Response) => adminController.update(req, res),
 );
@@ -146,7 +146,6 @@ app.patch(
 app.delete(
   "/api/v1/Reserva/:id",
   authMiddleware,
-  requireRole("admin"),
   validateId,
   (req: Request, res: Response) => reservaController.delete(req, res),
 );

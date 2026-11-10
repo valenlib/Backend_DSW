@@ -11,7 +11,7 @@ const allowedCreateFields = new Set([
   "email",
   "password",
 ]);
-const allowedUpdateFields = new Set(["nombre", "apellido", "email"]);
+const allowedUpdateFields = new Set(["nombre", "apellido", "email", "rol"]);
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -121,7 +121,7 @@ export function validateLogin(
 
     const normalizedEmail = email.trim().toLowerCase();
     validateEmail(normalizedEmail);
-    validatePassword(password);
+    validatePassword(password, false);
     req.body = { email: normalizedEmail, password };
     next();
   } catch (error) {
@@ -150,6 +150,9 @@ export async function validateUserUpdate(
     if (apellido !== undefined && !isNonEmptyString(apellido)) {
       throw new HttpError("El apellido no puede estar vacío", 400);
     }
+    if (req.body.rol !== undefined && req.body.rol !== "admin" && req.body.rol !== "usuario") {
+      throw new HttpError("El rol debe ser admin o usuario", 400);
+    }
 
     let normalizedEmail: string | undefined;
     if (email !== undefined) {
@@ -172,6 +175,7 @@ export async function validateUserUpdate(
       ...(nombre !== undefined ? { nombre: nombre.trim() } : {}),
       ...(apellido !== undefined ? { apellido: apellido.trim() } : {}),
       ...(normalizedEmail !== undefined ? { email: normalizedEmail } : {}),
+      ...(req.body.rol !== undefined ? { rol: req.body.rol } : {}),
     };
     next();
   } catch (error) {

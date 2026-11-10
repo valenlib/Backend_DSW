@@ -9,6 +9,6 @@ export default abstract class ReservaService {
     abstract create(reserva: CrearReservaDto, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
     abstract update(id: number, reserva: ActualizarReservaDto, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
     abstract logicalDelete(id: number, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
-    abstract delete(id: number): Promise<RespuestaReservaDto | undefined>;
+    abstract delete(id: number, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
 }
 //# sourceMappingURL=Reserva.Service.d.ts.map

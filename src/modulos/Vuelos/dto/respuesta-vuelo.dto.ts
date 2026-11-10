@@ -3,6 +3,8 @@ class RespuestaVueloDto {
     public id: number,
     public idAeropuertoOrigen: number,
     public idAeropuertoDestino: number,
+    public origen: string,
+    public destino: string,
     public fechaSalida: string,
     public fechaLlegada: string,
     public precio: number,

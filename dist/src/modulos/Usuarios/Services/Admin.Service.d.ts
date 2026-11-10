@@ -3,6 +3,7 @@ export type UsuarioUpdate = {
     nombre?: string;
     apellido?: string;
     email?: string;
+    rol?: "admin" | "usuario";
 };
 export declare abstract class AdminService {
     abstract findAll(): Promise<RespuestaAdminDto[]>;

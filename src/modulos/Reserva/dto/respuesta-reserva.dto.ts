@@ -6,6 +6,7 @@ class RespuestaReservaDto {
     public emailPasajero: string,
     public cantidadPasajes: number,
     public precioTotal: number,
+    public estado: "pendiente" | "confirmada" | "cancelada",
   ) {}
 }
 

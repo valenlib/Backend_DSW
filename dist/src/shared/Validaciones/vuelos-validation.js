@@ -73,6 +73,8 @@ export async function validateVueloCreate(req, res, next) {
             "fechaLlegada",
             "horaSalida",
             "horaLlegada",
+            "horaSalida",
+            "horaLlegada",
             "precio",
             "estado",
             "nuevoHorario",
@@ -110,6 +112,19 @@ export async function validateVueloUpdate(req, res, next) {
             throw new HttpError(`Propiedades no permitidas: ${extras.join(", ")}`, 400);
         if (Object.keys(body).length === 0) {
             throw new HttpError("Debe enviar al menos un campo para actualizar", 400);
+        }
+        if (body.fechaSalida !== undefined ||
+            body.fechaLlegada !== undefined ||
+            body.horaSalida !== undefined ||
+            body.horaLlegada !== undefined) {
+            if (!validDateTime(body.fechaSalida) ||
+                !validDateTime(body.fechaLlegada) ||
+                typeof body.horaSalida !== "string" ||
+                !timePattern.test(body.horaSalida) ||
+                typeof body.horaLlegada !== "string" ||
+                !timePattern.test(body.horaLlegada)) {
+                throw new HttpError("Las fechas y horas no tienen un formato válido", 400);
+            }
         }
         if (body.precio !== undefined &&
             (typeof body.precio !== "number" || body.precio <= 0)) {

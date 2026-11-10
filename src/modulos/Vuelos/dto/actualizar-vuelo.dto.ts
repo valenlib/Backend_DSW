@@ -4,6 +4,8 @@ class ActualizarVueloDto {
     public idAeropuertoDestino?: number,
     public fechaSalida?: string,
     public fechaLlegada?: string,
+    public horaSalida?: string,
+    public horaLlegada?: string,
     public precio?: number,
     public estado?: "en hora" | "cancelado" | "demorado",
     public nuevoHorario?: string,

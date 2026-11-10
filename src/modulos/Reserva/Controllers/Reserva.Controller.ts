@@ -62,9 +62,15 @@ export default class ReservaController {
     res.status(200).json(response);
   }
   async delete(req: Request, res: Response): Promise<void> {
-    const response = await this.reservaService.delete(Number(req.params.id));
+    const response = await this.reservaService.delete(
+      Number(req.params.id),
+      req.auth!.id,
+      req.auth!.rol,
+    );
     if (!response) {
-      res.status(404).json({ message: "Reserva no encontrada" });
+      res.status(404).json({
+        message: "Solo se pueden borrar físicamente reservas canceladas",
+      });
       return;
     }
     res.status(200).json(response);

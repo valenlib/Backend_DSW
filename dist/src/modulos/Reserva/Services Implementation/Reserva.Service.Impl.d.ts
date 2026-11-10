@@ -12,6 +12,7 @@ export default class ReservaServiceImpl extends ReservaService {
     create(reserva: CrearReservaDto, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
     update(id: number, reserva: ActualizarReservaDto, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
     logicalDelete(id: number, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
-    delete(id: number): Promise<RespuestaReservaDto | undefined>;
+    delete(id: number, userId: number, role: UserRole): Promise<RespuestaReservaDto | undefined>;
+    private findByIdIncludingInactive;
 }
 //# sourceMappingURL=Reserva.Service.Impl.d.ts.map

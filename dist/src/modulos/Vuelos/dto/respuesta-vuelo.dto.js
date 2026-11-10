@@ -1,8 +1,10 @@
 class RespuestaVueloDto {
-    constructor(id, idAeropuertoOrigen, idAeropuertoDestino, fechaSalida, fechaLlegada, precio, estado, nuevoHorario) {
+    constructor(id, idAeropuertoOrigen, idAeropuertoDestino, origen, destino, fechaSalida, fechaLlegada, precio, estado, nuevoHorario) {
         this.id = id;
         this.idAeropuertoOrigen = idAeropuertoOrigen;
         this.idAeropuertoDestino = idAeropuertoDestino;
+        this.origen = origen;
+        this.destino = destino;
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
         this.precio = precio;

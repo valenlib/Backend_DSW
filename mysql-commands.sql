@@ -78,11 +78,17 @@ create table IF NOT EXISTS asientos(
 INSERT INTO usuarios
   (nombre, apellido, email, password, rol)
 SELECT 'Admin', 'Prueba', 'admin@test.com',
-       '$2b$12$YK4n30x5M56uqVRob9VUg.CLDWTeANz8cVST9EHQ66ZAOpss3EN4.',
+       '$2b$12$0XonEB6wRQBkHemvgKHgw./vZc2k0tnHwl5RPgRDJ0Z/z9ZRyehFm',
        'admin'
 WHERE NOT EXISTS (
   SELECT 1 FROM usuarios WHERE email = 'admin@test.com'
 );
+
+UPDATE usuarios
+SET password = '$2b$12$0XonEB6wRQBkHemvgKHgw./vZc2k0tnHwl5RPgRDJ0Z/z9ZRyehFm',
+    rol = 'admin',
+    activo = TRUE
+WHERE email = 'admin@test.com';
 
 INSERT INTO aeropuertos (nombre, ciudad, pais)
 SELECT 'Aeropuerto Ezeiza', 'Buenos Aires', 'Argentina'
@@ -116,6 +122,32 @@ WHERE origen.ciudad = 'Buenos Aires'
     WHERE fecha_salida = '2027-01-15 08:00:00'
       AND id_aeropuerto_origen = origen.id_aeropuerto
       AND id_aeropuerto_destino = destino.id_aeropuerto
+  );
+
+INSERT INTO reservas (id_vuelo, id_usuario, estado, cantidad_pasajes)
+SELECT v.id_vuelo, u.id_usuario, 'confirmada', 1
+FROM vuelos v
+JOIN usuarios u ON u.email = 'admin@test.com'
+WHERE v.fecha_salida = '2027-01-15 08:00:00'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM reservas r
+    WHERE r.id_vuelo = v.id_vuelo
+      AND r.id_usuario = u.id_usuario
+  );
+
+INSERT INTO pasajes (id_reserva, id_vuelo, precio, fecha, hora)
+SELECT r.id_reserva, r.id_vuelo, v.precio,
+       DATE(v.fecha_salida), TIME(v.fecha_salida)
+FROM reservas r
+JOIN usuarios u ON u.id_usuario = r.id_usuario
+JOIN vuelos v ON v.id_vuelo = r.id_vuelo
+WHERE u.email = 'admin@test.com'
+  AND v.fecha_salida = '2027-01-15 08:00:00'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM pasajes p
+    WHERE p.id_reserva = r.id_reserva
   );
 
 INSERT INTO vuelos

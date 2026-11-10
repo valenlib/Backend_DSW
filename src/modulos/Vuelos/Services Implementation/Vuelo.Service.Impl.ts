@@ -9,6 +9,8 @@ type VueloRow = RowDataPacket & {
   id_vuelo: number;
   id_aeropuerto_origen: number;
   id_aeropuerto_destino: number;
+  origen: string;
+  destino: string;
   fecha_salida: string;
   fecha_llegada: string;
   precio: number;
@@ -19,6 +21,7 @@ type VueloRow = RowDataPacket & {
 export default class VueloServiceImpl extends VueloService {
   private readonly selectQuery = `
     SELECT v.id_vuelo, v.id_aeropuerto_origen, v.id_aeropuerto_destino,
+           ao.ciudad AS origen, ad.ciudad AS destino,
            v.fecha_salida, v.fecha_llegada, v.precio, v.estado, v.nuevo_horario
     FROM vuelos v
     INNER JOIN aeropuertos ao
@@ -32,6 +35,8 @@ export default class VueloServiceImpl extends VueloService {
       row.id_vuelo,
       row.id_aeropuerto_origen,
       row.id_aeropuerto_destino,
+      row.origen,
+      row.destino,
       row.fecha_salida,
       row.fecha_llegada,
       Number(row.precio),
@@ -103,14 +108,29 @@ export default class VueloServiceImpl extends VueloService {
       idAeropuertoDestino: "id_aeropuerto_destino",
       fechaSalida: "fecha_salida",
       fechaLlegada: "fecha_llegada",
+      horaSalida: "fecha_salida",
+      horaLlegada: "fecha_llegada",
       precio: "precio",
       estado: "estado",
       nuevoHorario: "nuevo_horario",
     };
-    const values = fields.map(([, value]) => value);
+    const salida = vuelo.fechaSalida && vuelo.horaSalida
+      ? `${vuelo.fechaSalida} ${vuelo.horaSalida}`
+      : undefined;
+    const llegada = vuelo.fechaLlegada && vuelo.horaLlegada
+      ? `${vuelo.fechaLlegada} ${vuelo.horaLlegada}`
+      : undefined;
+    const normalizedFields = fields.filter(
+      ([field]) => field !== "horaSalida" && field !== "horaLlegada"
+        && !(field === "fechaSalida" && salida)
+        && !(field === "fechaLlegada" && llegada),
+    );
+    if (salida) normalizedFields.push(["fechaSalida", salida]);
+    if (llegada) normalizedFields.push(["fechaLlegada", llegada]);
+    const values = normalizedFields.map(([, value]) => value);
     values.push(id);
     const [result] = await db.execute<ResultSetHeader>(
-      `UPDATE vuelos SET ${fields
+      `UPDATE vuelos SET ${normalizedFields
         .map(([field]) => `${columnMap[field]} = ?`)
         .join(", ")}
        WHERE id_vuelo = ? AND estado <> 'cancelado'`,

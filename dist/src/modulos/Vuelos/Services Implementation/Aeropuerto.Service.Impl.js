@@ -25,10 +25,15 @@ export default class AeropuertoServiceImpl extends AeropuertoService {
         if (fields.length === 0) {
             return this.findById(id);
         }
+        const columnMap = {
+            nombre: "nombre",
+            ciudad: "ciudad",
+            pais: "pais",
+        };
         const values = fields.map(([, value]) => value.trim());
         values.push(String(id));
         const [result] = await db.execute(`UPDATE aeropuertos SET ${fields
-            .map(([field]) => `${field} = ?`)
+            .map(([field]) => `${columnMap[field]} = ?`)
             .join(", ")}
        WHERE id_aeropuerto = ? AND activo = TRUE`, values);
         return result.affectedRows ? this.findById(id) : undefined;

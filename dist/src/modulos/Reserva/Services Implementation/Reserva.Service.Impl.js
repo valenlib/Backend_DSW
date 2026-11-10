@@ -5,15 +5,19 @@ import { HttpError } from "../../../shared/error-handler.js";
 export default class ReservaServiceImpl extends ReservaService {
     constructor() {
         super(...arguments);
-        this.selectQuery = `     SELECT r.id_reserva, r.id_vuelo, r.cantidad_pasajes,            u.nombre, u.apellido, u.email,            v.precio * r.cantidad_pasajes AS precio_total     FROM reservas r     INNER JOIN usuarios u ON u.id_usuario = r.id_usuario AND u.activo = TRUE     INNER JOIN vuelos v ON v.id_vuelo = r.id_vuelo   `;
+        this.selectQuery = `SELECT r.id_reserva, r.id_vuelo, r.cantidad_pasajes, r.estado,
+    u.nombre, u.apellido, u.email, v.precio * r.cantidad_pasajes AS precio_total
+    FROM reservas r
+    INNER JOIN usuarios u ON u.id_usuario = r.id_usuario AND u.activo = TRUE
+    INNER JOIN vuelos v ON v.id_vuelo = r.id_vuelo`;
     }
     toDto(row) {
-        return new RespuestaReservaDto(row.id_reserva, row.id_vuelo, `${row.nombre} ${row.apellido}`, row.email, row.cantidad_pasajes, Number(row.precio_total));
+        return new RespuestaReservaDto(row.id_reserva, row.id_vuelo, `${row.nombre} ${row.apellido}`, row.email, row.cantidad_pasajes, Number(row.precio_total), row.estado);
     }
     async findAll(userId, role) {
         const ownerFilter = role === "admin" ? "" : " AND r.id_usuario = ?";
         const params = role === "admin" ? [] : [userId];
-        const [rows] = await db.query(`${this.selectQuery} WHERE r.activa = TRUE${ownerFilter} ORDER BY r.id_reserva`, params);
+        const [rows] = await db.query(`${this.selectQuery} WHERE 1 = 1${ownerFilter} ORDER BY r.id_reserva`, params);
         return rows.map((row) => this.toDto(row));
     }
     async findById(id, userId, role) {
@@ -23,7 +27,7 @@ export default class ReservaServiceImpl extends ReservaService {
         return rows[0] ? this.toDto(rows[0]) : undefined;
     }
     async findByEmail(email) {
-        const [rows] = await db.query(`${this.selectQuery} WHERE u.email = ? AND r.activa = TRUE`, [email]);
+        const [rows] = await db.query(`${this.selectQuery} WHERE u.email = ?`, [email]);
         return rows.length > 0 ? rows.map((row) => this.toDto(row)) : undefined;
     }
     async create(reserva, userId, role) {
@@ -58,17 +62,35 @@ export default class ReservaServiceImpl extends ReservaService {
         if (!reserva) {
             return undefined;
         }
-        await db.execute(`UPDATE reservas SET activa = FALSE        WHERE id_reserva = ? AND activa = TRUE${role === "admin" ? "" : " AND id_usuario = ?"}`, role === "admin" ? [id] : [id, userId]);
-        return reserva;
+        await db.execute(`UPDATE reservas SET activa = FALSE, estado = 'cancelada'
+       WHERE id_reserva = ? AND activa = TRUE${role === "admin" ? "" : " AND id_usuario = ?"}`, role === "admin" ? [id] : [id, userId]);
+        return this.findByIdIncludingInactive(id, userId, role);
     }
-    async delete(id) {
-        const [rows] = await db.query(`${this.selectQuery} WHERE r.id_reserva = ? AND r.activa = TRUE`, [id]);
-        const reserva = rows[0] ? this.toDto(rows[0]) : undefined;
-        if (!reserva) {
+    async delete(id, userId, role) {
+        const reserva = await this.findByIdIncludingInactive(id, userId, role);
+        if (!reserva || reserva.estado !== "cancelada") {
             return undefined;
         }
-        await db.execute("DELETE FROM reservas WHERE id_reserva = ?", [id]);
+        const connection = await db.getConnection();
+        try {
+            await connection.beginTransaction();
+            await connection.execute("DELETE FROM pasajes WHERE id_reserva = ?", [id]);
+            await connection.execute("DELETE FROM reservas WHERE id_reserva = ?", [id]);
+            await connection.commit();
+        }
+        catch (error) {
+            await connection.rollback();
+            throw error;
+        }
+        finally {
+            connection.release();
+        }
         return reserva;
+    }
+    async findByIdIncludingInactive(id, userId, role) {
+        const ownerFilter = role === "admin" ? "" : " AND r.id_usuario = ?";
+        const [rows] = await db.query(`${this.selectQuery} WHERE r.id_reserva = ?${ownerFilter}`, role === "admin" ? [id] : [id, userId]);
+        return rows[0] ? this.toDto(rows[0]) : undefined;
     }
 }
 //# sourceMappingURL=Reserva.Service.Impl.js.map

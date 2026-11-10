@@ -31,5 +31,9 @@ export default abstract class ReservaService {
     userId: number,
     role: UserRole,
   ): Promise<RespuestaReservaDto | undefined>;
-  abstract delete(id: number): Promise<RespuestaReservaDto | undefined>;
+  abstract delete(
+    id: number,
+    userId: number,
+    role: UserRole,
+  ): Promise<RespuestaReservaDto | undefined>;
 }
