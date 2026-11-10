@@ -4,6 +4,7 @@ import DeletePerfilDto from "../dto/delete-perfil.dto.js";
 import LogicalDeletePerfilDto from "../dto/logical-delete-perfil.dto.js";
 import RespuestaPerfilDto from "../dto/respuesta-perfil.dto.js";
 export declare class PerfilServiceImpl extends PerfilService {
+    private findById;
     actualizarPerfil(perfilRequest: ActualizarPerfilDto): Promise<RespuestaPerfilDto | undefined>;
     logicalDelete(perfilRequest: LogicalDeletePerfilDto): Promise<RespuestaPerfilDto | undefined>;
     delete(perfilRequest: DeletePerfilDto): Promise<RespuestaPerfilDto | undefined>;

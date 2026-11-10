@@ -29,6 +29,15 @@ Content-Type: application/json
   "refreshToken": "PEGAR_REFRESH_TOKEN"
 }
 
+### Cerrar sesión
+POST {{baseUrl}}/Usuario/Logout
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "refreshToken": "PEGAR_REFRESH_TOKEN"
+}
+
 ### Obtener usuarios
 GET {{baseUrl}}/Usuario
 Authorization: Bearer {{token}}
