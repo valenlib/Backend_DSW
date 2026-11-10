@@ -1,6 +1,7 @@
 class Pasaje {
-    constructor(id, vuelo, precio, fecha, hora) {
+    constructor(id, idReserva, vuelo, precio, fecha, hora) {
         this._id = id;
+        this._idReserva = idReserva;
         this._vuelo = vuelo;
         this._precio = precio;
         this._fecha = fecha;
@@ -11,6 +12,9 @@ class Pasaje {
     }
     get vuelo() {
         return this._vuelo;
+    }
+    get idReserva() {
+        return this._idReserva;
     }
     get precio() {
         return this._precio;
@@ -26,6 +30,9 @@ class Pasaje {
     }
     set vuelo(vuelo) {
         this._vuelo = vuelo;
+    }
+    set idReserva(idReserva) {
+        this._idReserva = idReserva;
     }
     set precio(precio) {
         this._precio = precio;

@@ -1,5 +1,10 @@
 declare class ActualizarPasajeDto {
-    constructor(id: number, precio?: number, fecha?: string, hora?: string, origen?: string, destino?: string);
+    idReserva?: number | undefined;
+    idVuelo?: number | undefined;
+    precio?: number | undefined;
+    fecha?: string | undefined;
+    hora?: string | undefined;
+    constructor(idReserva?: number | undefined, idVuelo?: number | undefined, precio?: number | undefined, fecha?: string | undefined, hora?: string | undefined);
 }
 export default ActualizarPasajeDto;
 //# sourceMappingURL=actualizar-pasaje.dto.d.ts.map

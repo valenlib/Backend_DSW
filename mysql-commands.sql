@@ -50,6 +50,16 @@ create table IF NOT EXISTS reservas(
   FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
   activa boolean not null default true
 );
+create table IF NOT EXISTS pasajes(
+  id_pasaje int primary key auto_increment,
+  id_reserva int not null,
+  id_vuelo int not null,
+  precio decimal(10, 2) not null,
+  fecha date not null,
+  hora time not null,
+  FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva),
+  FOREIGN KEY (id_vuelo) REFERENCES vuelos(id_vuelo)
+);
 create table IF NOT EXISTS aviones(
   id_avion int primary key auto_increment,
   modelo varchar(100) not null,

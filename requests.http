@@ -175,3 +175,30 @@ Authorization: Bearer {{token}}
 ### Borrado físico de reserva
 DELETE {{baseUrl}}/Reserva/1
 Authorization: Bearer {{token}}
+
+### Crear pasaje
+POST {{baseUrl}}/Pasaje
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idReserva": 1,
+  "idVuelo": 1,
+  "precio": 85000,
+  "fecha": "2027-01-15",
+  "hora": "08:00:00"
+}
+
+### Actualizar pasaje
+PATCH {{baseUrl}}/Pasaje/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "precio": 90000,
+  "hora": "09:00:00"
+}
+
+### Borrado físico de pasaje
+DELETE {{baseUrl}}/Pasaje/1
+Authorization: Bearer {{token}}

@@ -1,11 +1,10 @@
 class ActualizarPasajeDto {
   constructor(
-    id: number,
-    precio?: number,
-    fecha?: string,
-    hora?: string,
-    origen?: string,
-    destino?: string,
+    public idReserva?: number,
+    public idVuelo?: number,
+    public precio?: number,
+    public fecha?: string,
+    public hora?: string,
   ) {}
 }
 

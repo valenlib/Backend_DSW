@@ -2,6 +2,7 @@ import type Vuelo from "../../Vuelos/Entity/Vuelo.Entity.js";
 
 class Pasaje {
   private _id: number;
+  private _idReserva: number;
   private _vuelo: Vuelo;
   private _precio: number;
   private _fecha: string;
@@ -9,12 +10,14 @@ class Pasaje {
 
   constructor(
     id: number,
+    idReserva: number,
     vuelo: Vuelo,
     precio: number,
     fecha: string,
     hora: string,
   ) {
     this._id = id;
+    this._idReserva = idReserva;
     this._vuelo = vuelo;
     this._precio = precio;
     this._fecha = fecha;
@@ -27,6 +30,10 @@ class Pasaje {
 
   get vuelo(): Vuelo {
     return this._vuelo;
+  }
+
+  get idReserva(): number {
+    return this._idReserva;
   }
 
   get precio(): number {
@@ -47,6 +54,10 @@ class Pasaje {
 
   set vuelo(vuelo: Vuelo) {
     this._vuelo = vuelo;
+  }
+
+  set idReserva(idReserva: number) {
+    this._idReserva = idReserva;
   }
 
   set precio(precio: number) {

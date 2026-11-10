@@ -1,5 +1,7 @@
 class DeletePasajeDto {
-    constructor(id) { }
+    constructor(id) {
+        this.id = id;
+    }
 }
 export default DeletePasajeDto;
 //# sourceMappingURL=delete-pasaje.dto.js.map

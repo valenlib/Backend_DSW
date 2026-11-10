@@ -1,1 +1,1 @@
-{"version":3,"file":"delete-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/delete-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,eAAe;IACnB,YAAY,EAAU,IAAG,CAAC;CAC3B;AAED,eAAe,eAAe,CAAC"}
+{"version":3,"file":"delete-pasaje.dto.js","sourceRoot":"","sources":["../../../../../src/modulos/Reserva/dto/delete-pasaje.dto.ts"],"names":[],"mappings":"AAAA,MAAM,eAAe;IACnB,YAAmB,EAAU;QAAV,OAAE,GAAF,EAAE,CAAQ;IAAG,CAAC;CAClC;AAED,eAAe,eAAe,CAAC"}

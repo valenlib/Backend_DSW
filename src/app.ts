@@ -20,6 +20,8 @@ import {
 } from "./shared/Validaciones/user-validation.js";
 import ReservaController from "./modulos/Reserva/Controllers/Reserva.Controller.js";
 import ReservaServiceImpl from "./modulos/Reserva/Services Implementation/Reserva.Service.Impl.js";
+import PasajeController from "./modulos/Reserva/Controllers/Pasaje.Controller.js";
+import PasajeServiceImpl from "./modulos/Reserva/Services Implementation/Pasaje.Service.Impl.js";
 import AeropuertoController from "./modulos/Vuelos/Controllers/Aeropuerto.Controller.js";
 import AeropuertoServiceImpl from "./modulos/Vuelos/Services Implementation/Aeropuerto.Service.Impl.js";
 import VueloController from "./modulos/Vuelos/Controllers/Vuelo.Controller.js";
@@ -47,6 +49,7 @@ const adminController = new AdminController(new AdminServiceImpl());
 const authController = new AuthController(new AuthServiceImpl());
 const registroController = new RegistroController(new RegistroServiceImpl());
 const reservaController = new ReservaController(new ReservaServiceImpl());
+const pasajeController = new PasajeController(new PasajeServiceImpl());
 const aeropuertoController = new AeropuertoController(
   new AeropuertoServiceImpl(),
 );
@@ -146,6 +149,25 @@ app.delete(
   requireRole("admin"),
   validateId,
   (req: Request, res: Response) => reservaController.delete(req, res),
+);
+app.post(
+  "/api/v1/Pasaje",
+  authMiddleware,
+  (req: Request, res: Response) => pasajeController.create(req, res),
+);
+app.patch(
+  "/api/v1/Pasaje/:id",
+  authMiddleware,
+  requireRole("admin"),
+  validateId,
+  (req: Request, res: Response) => pasajeController.update(req, res),
+);
+app.delete(
+  "/api/v1/Pasaje/:id",
+  authMiddleware,
+  requireRole("admin"),
+  validateId,
+  (req: Request, res: Response) => pasajeController.delete(req, res),
 );
 app.get(
   "/api/v1/Aeropuerto",
